@@ -1,0 +1,2069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AL-GHADIR-MENU</title>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@400;500;600&family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Add this right after the Google Fonts link in the head section -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary-color: #1a5f7a;  /* Deep Ocean Blue */
+      --secondary-color: #c41e3a;  /* Lebanese Red */
+      --accent-color: #2ecc71;  /* Emerald Green */
+      --background-color: #f5f7fa;
+      --text-color: #2c3e50;
+      --card-bg: #ffffff;
+      --gradient-primary: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+      --gradient-secondary: linear-gradient(135deg, #1a5f7a 0%, #2c3e50 100%);
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    body {
+      background-color: var(--background-color);
+      font-family: 'Poppins', sans-serif;
+      padding-bottom: 2rem;
+      color: var(--text-color);
+      margin: 0;
+      background-image: 
+        radial-gradient(circle at 100% 100%, rgba(26, 95, 122, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 0% 0%, rgba(196, 30, 58, 0.03) 0%, transparent 50%);
+    }
+
+    header {
+      text-align: center;
+      padding: 0;
+      background: var(--gradient-primary);
+      box-shadow: var(--shadow-md);
+      position: sticky;
+      top: 0;
+      z-index: 1001;
+      width: 100%;
+      margin: 0;
+    }
+
+    .logo-container {
+      position: relative;
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+    }
+
+    .logo {
+      max-width: 280px;
+      height: auto;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+      transition: transform 0.3s ease;
+      margin: 0;
+      padding: 0;
+    }
+
+    .logo:hover {
+      transform: scale(1.02);
+    }
+
+    .gradient-line {
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
+      margin: 0;
+      padding: 0;
+    }
+
+    .category-buttons {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 1.2rem;
+      padding: 1.2rem;
+      background: linear-gradient(135deg, #2c7a9c 0%, #3a5f7a 100%);
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      width: 100%;
+      margin: 0;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .category-buttons::before {
+      display: none;
+    }
+
+    .category-buttons::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category-buttons button {
+      flex: 0 0 auto;
+      white-space: nowrap;
+      font-size: 1rem;
+      padding: 0.8rem 1.8rem;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      border: 2px solid rgba(255,255,255,0.2);
+      color: white;
+      background: transparent;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      position: relative;
+      overflow: hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .category-buttons button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,0.2),
+        transparent
+      );
+      transition: 0.5s;
+    }
+
+    .category-buttons button:hover::before {
+      left: 100%;
+    }
+
+    .category-buttons button:hover {
+      transform: translateY(-2px);
+    }
+
+    .category-buttons .active {
+      transform: scale(1.1);
+      background: white;
+      color: #c41e3a;
+      border-color: white;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+
+    .menu-section {
+      display: none;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+
+    .menu-section.active {
+      display: block;
+    }
+
+    .item-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      border: 1px solid rgba(0,0,0,0.05);
+      flex-direction: row-reverse;
+    }
+
+    .item-card img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-left: 1px solid rgba(0,0,0,0.05);
+      border-right: none;
+    }
+
+    .item-details {
+      padding: 1rem;
+      flex: 1;
+      text-align: right;
+    }
+
+    .item-details h5 {
+      margin: 0;
+      font-size: 1.1rem;
+      color: var(--primary-color);
+      font-weight: 600;
+      font-family: 'Cairo', sans-serif;
+    }
+
+    .item-details p {
+      margin: 0.25rem 0;
+      font-size: 0.875rem;
+      color: var(--text-color);
+      line-height: 1.5;
+      opacity: 0.9;
+      font-family: 'Cairo', sans-serif;
+    }
+
+    .item-price {
+      font-weight: 600;
+      color: var(--secondary-color);
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: rgba(231, 76, 60, 0.1);
+      border-radius: 12px;
+    }
+
+    .item-price.lbp {
+      font-family: 'Cairo', sans-serif;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 0;
+      }
+
+      .logo {
+        max-width: 220px;
+      }
+
+      .category-buttons {
+        padding: 0.8rem;
+        gap: 0.6rem;
+        background: var(--gradient-secondary);
+        position: sticky;
+        top: 0;
+        z-index: 999;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .category-buttons button {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.85rem;
+        border-radius: 25px;
+        white-space: nowrap;
+        background: transparent;
+        border: 1px solid rgba(255,255,255,0.2);
+        -webkit-tap-highlight-color: transparent;
+        box-shadow: none;
+      }
+
+      .category-buttons .active {
+        transform: scale(1.1);
+        background: white;
+        color: #c41e3a;
+        border-color: white;
+        box-shadow: none;
+      }
+
+      .item-card {
+        margin-bottom: 1rem;
+      }
+
+      .item-card img {
+        width: 80px;
+        height: 80px;
+      }
+
+      .item-details {
+        padding: 0.75rem;
+      }
+
+      .item-details h5 {
+        font-size: 1rem;
+      }
+
+      .item-price {
+        font-size: 0.9rem;
+      }
+
+      .subcategory-title {
+        font-size: 1.2rem;
+        margin: 1.5rem 0 1rem;
+      }
+
+      .subcategory-subtitle {
+        font-size: 1.1rem;
+        margin: 1.25rem 0 0.75rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      header {
+        padding: 0;
+      }
+
+      .logo {
+        max-width: 180px;
+      }
+
+      .category-buttons {
+        padding: 1rem;
+        gap: 0.8rem;
+      }
+
+      .category-buttons button {
+        padding: 1rem 1.8rem;
+        font-size: 1rem;
+        min-height: 55px;
+      }
+
+      .container {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+      }
+
+      .item-card {
+        margin-bottom: 0.75rem;
+      }
+
+      .item-card img {
+        width: 70px;
+        height: 70px;
+      }
+
+      .item-details {
+        padding: 0.5rem;
+      }
+
+      .item-details h5 {
+        font-size: 0.9rem;
+      }
+
+      .item-price {
+        font-size: 0.8rem;
+        padding: 0.2rem 0.5rem;
+      }
+
+      .subcategory-title {
+        font-size: 1.1rem;
+        margin: 1rem 0 0.75rem;
+      }
+
+      .subcategory-subtitle {
+        font-size: 1rem;
+        margin: 0.75rem 0 0.5rem;
+      }
+    }
+
+    .subcategory-title {
+      font-family: 'Cairo', sans-serif;
+      color: var(--primary-color);
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin: 2rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--primary-color);
+      text-align: right;
+      position: relative;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .subcategory-title .english {
+      font-family: 'Playfair Display', serif;
+      text-align: left;
+    }
+
+    .subcategory-title .arabic {
+      text-align: right;
+    }
+
+    .subcategory-subtitle {
+      font-family: 'Cairo', sans-serif;
+      color: var(--secondary-color);
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 1.5rem 0 1rem;
+      padding-bottom: 0.25rem;
+      border-bottom: 1px solid var(--secondary-color);
+      text-align: right;
+      position: relative;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .subcategory-subtitle .english {
+      font-family: 'Playfair Display', serif;
+      text-align: left;
+    }
+
+    .subcategory-subtitle .arabic {
+      text-align: right;
+    }
+
+    /* Special styles for Italian Pizza category */
+    #pizza .item-card {
+      flex-direction: row;
+    }
+
+    #pizza .item-card img {
+      border-right: 1px solid rgba(0,0,0,0.05);
+      border-left: none;
+    }
+
+    #pizza .item-details {
+      text-align: left;
+    }
+
+    #pizza .item-details h5 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    #pizza .item-details p {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    #pizza .subcategory-title,
+    #pizza .subcategory-subtitle {
+      text-align: left;
+      justify-content: flex-start;
+    }
+
+    /* Footer Styles */
+    footer {
+      background: linear-gradient(135deg, var(--primary-color) 0%, #2c3e50 100%);
+      color: white;
+      padding: 1.5rem 0;
+      margin-top: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-color), var(--secondary-color));
+      opacity: 0.5;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-logo {
+      text-align: center;
+    }
+
+    .footer-logo img {
+      max-width: 200px;
+      height: auto;
+      filter: brightness(0) invert(1);
+      transition: transform 0.3s ease;
+    }
+
+    .footer-info {
+      text-align: right;
+      font-family: 'Cairo', sans-serif;
+    }
+
+    .location-text {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      opacity: 0.9;
+    }
+
+    .location-text i {
+      font-size: 1rem;
+      color: var(--accent-color);
+    }
+
+    .social-buttons {
+      display: flex;
+      gap: 0.8rem;
+    }
+
+    .social-button {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(4px);
+    }
+
+    .social-button:hover {
+      transform: translateY(-3px);
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .social-button i {
+      font-size: 1.2rem;
+    }
+
+    .social-button.whatsapp:hover {
+      background: #25D366;
+      border-color: #25D366;
+    }
+
+    .social-button.instagram:hover {
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      border-color: #dc2743;
+    }
+
+    @media (max-width: 768px) {
+      footer {
+        padding: 1.2rem 0;
+      }
+
+      .footer-container {
+        flex-direction: column;
+        gap: 1.2rem;
+        padding: 0 1.2rem;
+      }
+
+      .footer-logo {
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-logo img {
+        max-width: 180px;
+      }
+
+      .footer-info {
+        text-align: center;
+        width: 100%;
+      }
+
+      .location-text {
+        justify-content: center;
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+        padding: 0.5rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+        backdrop-filter: blur(4px);
+      }
+
+      .social-buttons {
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      .social-button {
+        width: 42px;
+        height: 42px;
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .social-button i {
+        font-size: 1.3rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      footer {
+        padding: 1rem 0;
+      }
+
+      .footer-container {
+        padding: 0 1rem;
+        gap: 1rem;
+      }
+
+      .footer-logo img {
+        max-width: 160px;
+      }
+
+      .location-text {
+        font-size: 0.9rem;
+        padding: 0.4rem;
+      }
+
+      .social-button {
+        width: 38px;
+        height: 38px;
+      }
+
+      .social-button i {
+        font-size: 1.2rem;
+      }
+    }
+
+    /* Prevent text selection and remove interactive effects */
+    * {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+
+    /* Mobile Optimizations */
+    @media (max-width: 768px) {
+      body {
+        padding-bottom: 1rem;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .logo {
+        max-width: 200px;
+        margin: 0.5rem 0;
+      }
+
+      .category-buttons {
+        padding: 0.8rem;
+        gap: 0.6rem;
+        background: var(--gradient-secondary);
+        position: sticky;
+        top: 0;
+        z-index: 999;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .category-buttons button {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.85rem;
+        border-radius: 25px;
+        white-space: nowrap;
+        background: transparent;
+        border: 1px solid rgba(255,255,255,0.2);
+        -webkit-tap-highlight-color: transparent;
+        box-shadow: none;
+      }
+
+      .category-buttons .active {
+        transform: scale(1.1);
+        background: white;
+        color: #c41e3a;
+        border-color: white;
+        box-shadow: none;
+      }
+
+      .container {
+        padding: 0.8rem;
+      }
+
+      .menu-section {
+        padding: 0.5rem;
+        margin-top: 0.5rem;
+      }
+
+      .subcategory-title {
+        font-size: 1.3rem;
+        margin: 1.5rem 0 1rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 2px solid var(--primary-color);
+        position: sticky;
+        top: 0;
+        background: var(--background-color);
+        z-index: 2;
+        padding-top: 0.5rem;
+      }
+
+      .subcategory-subtitle {
+        font-size: 1.1rem;
+        margin: 1.2rem 0 0.8rem;
+        padding-bottom: 0.3rem;
+        border-bottom: 1px solid var(--secondary-color);
+      }
+
+      .item-card {
+        margin-bottom: 0.8rem;
+        border-radius: 12px;
+        background: white;
+        border: 1px solid rgba(0,0,0,0.05);
+      }
+
+      .item-card img {
+        width: 90px;
+        height: 90px;
+        border-radius: 0 12px 12px 0;
+      }
+
+      .item-details {
+        padding: 0.8rem;
+      }
+
+      .item-details h5 {
+        font-size: 1rem;
+        margin-bottom: 0.2rem;
+        color: var(--primary-color);
+      }
+
+      .item-details p {
+        font-size: 0.85rem;
+        margin: 0.2rem 0;
+        opacity: 0.9;
+      }
+
+      .item-price {
+        font-size: 0.9rem;
+        padding: 0.2rem 0.6rem;
+        border-radius: 8px;
+        background: rgba(231, 76, 60, 0.1);
+        margin-top: 0.4rem;
+        display: inline-block;
+      }
+
+      /* Special styles for Italian Pizza category */
+      #pizza .item-card {
+        flex-direction: row;
+      }
+
+      #pizza .item-card img {
+        border-radius: 12px 0 0 12px;
+      }
+
+      #pizza .item-details {
+        text-align: left;
+      }
+
+      /* Footer Mobile Styles */
+      footer {
+        padding: 1.2rem 0;
+        margin-top: 2rem;
+      }
+
+      .footer-container {
+        flex-direction: column;
+        gap: 1.2rem;
+        padding: 0 1.2rem;
+      }
+
+      .footer-logo {
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-logo img {
+        max-width: 180px;
+      }
+
+      .footer-info {
+        text-align: center;
+        width: 100%;
+      }
+
+      .location-text {
+        justify-content: center;
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+        padding: 0.5rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+      }
+
+      .social-buttons {
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      .social-button {
+        width: 42px;
+        height: 42px;
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .social-button i {
+        font-size: 1.3rem;
+      }
+    }
+
+    .menu-item {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .menu-item-content {
+      flex: 1;
+    }
+
+    .menu-item-title {
+      font-family: 'Playfair Display', serif;
+      color: var(--primary-color);
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .menu-item-title .english {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .menu-item-title .arabic {
+      font-family: 'Cairo', sans-serif;
+    }
+
+    .menu-item-description {
+      color: #666;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 0.5rem;
+    }
+
+    .menu-item-price {
+      font-family: 'Playfair Display', serif;
+      color: var(--primary-color);
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-container">
+      <img src="ghadirlogo.PNG" alt="AL-GHADIR-MENU" class="logo">
+    </div>
+    <div class="gradient-line"></div>
+    <!-- Category Buttons -->
+    <div class="category-buttons">
+      <button class="btn btn-outline-primary btn-sm active" onclick="showCategory(event, 'specials')">الكل - All</button>
+      <button class="btn btn-outline-primary btn-sm" onclick="showCategory(event, 'breads')">صفيحة بعلبكية و لحمة بعجين</button>
+      <button class="btn btn-outline-primary btn-sm" onclick="showCategory(event, 'pizza')">Italian Pizza</button>
+      <button class="btn btn-outline-primary btn-sm" onclick="showCategory(event, 'grill')">المشاوي</button>
+      <button class="btn btn-outline-primary btn-sm" onclick="showCategory(event, 'pastries')">معجنات</button>
+    </div>
+  </header>
+
+  <div class="container py-3">
+
+    <!-- Specials (All Items) -->
+    <div id="specials" class="menu-section active">
+      <h3 class="subcategory-title">صفيحة بعلبكية</h3>
+      <div class="item-card">
+        <img src="ndsfiha.png" alt="Half Dozen Sfiha">
+        <div class="item-details">
+          <h5>نص دزدينة صفيحة</h5>
+          <p class="item-price lbp">235,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="dsfiha.png" alt="Dozen Sfiha">
+        <div class="item-details">
+          <h5>دزدينة صفيحة</h5>
+          <p class="item-price lbp">470,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="nksfiha.png" alt="Half Kilo Sfiha">
+        <div class="item-details">
+          <h5>نص كيلو صفيحة</h5>
+          <p class="item-price lbp">1,410,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="ksfiha.png" alt="Kilo Sfiha">
+        <div class="item-details">
+          <h5>كيلو صفيحة</h5>
+          <p class="item-price lbp">2,820,000 ل.ل</p>
+        </div>
+      </div>
+
+      <h3 class="subcategory-title">لحمة بعجين</h3>
+      <div class="item-card">
+        <img src="ndlahme-bi-ajeen.png" alt="Half Dozen Lahme Bi Ajeen">
+        <div class="item-details">
+          <h5>نص دزدينة لحمة بعجين</h5>
+          <p class="item-price lbp">450,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="dlahme-bi-ajeen.png" alt="Dozen Lahme Bi Ajeen">
+        <div class="item-details">
+          <h5>دزدينة لحمة بعجين</h5>
+          <p class="item-price lbp">900,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="nklahme-bi-ajeen.png" alt="Half Kilo Lahme Bi Ajeen">
+        <div class="item-details">
+          <h5>نص كيلو لحمة بعجين</h5>
+          <p class="item-price lbp">1,125,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="klahme-bi-ajeen.png" alt="Kilo Lahme Bi Ajeen">
+        <div class="item-details">
+          <h5>كيلو لحمة بعجين</h5>
+          <p class="item-price lbp">2,250,000 ل.ل</p>
+        </div>
+      </div>
+
+      <h3 class="subcategory-title">Italian Pizza</h3>
+      <div class="item-card">
+        <img src="margherita.png" alt="Margherita">
+        <div class="item-details">
+          <h5>Margherita Pizza</h5>
+          <p class="item-price lbp">800,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="pepperoni.png" alt="Pepperoni">
+        <div class="item-details">
+          <h5>Pepperoni Pizza</h5>
+          <p class="item-price lbp">900,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="vegetarian-pizza.png" alt="Vegetarian">
+        <div class="item-details">
+          <h5>Vegetarian Pizza</h5>
+          <p class="item-price lbp">770,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="mushroom-pizza.png" alt="Fungi">
+        <div class="item-details">
+          <h5>Fungi Pizza</h5>
+          <p class="item-price lbp">1,200,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="sausage-pizza.png" alt="Sojuk">
+        <div class="item-details">
+          <h5>Sojuk Pizza</h5>
+          <p class="item-price lbp">950,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="seafood-pizza.png" alt="Shrimp">
+        <div class="item-details">
+          <h5>Shrimp Pizza</h5>
+          <p class="item-price lbp">1,320,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="chicken-pizza.png" alt="BBQ Chicken">
+        <div class="item-details">
+          <h5>BBQ Chicken Pizza</h5>
+          <p class="item-price lbp">1,120,000 ل.ل</p>
+        </div>
+      </div>
+
+      <h3 class="subcategory-title">المشاوي</h3>
+      <div class="item-card">
+        <img src="grill-mix.png" alt="Grill Mix">
+        <div class="item-details">
+          <h5>كيلو مشاوي مع سيرفيس</h5>
+          <p class="item-price lbp">2,000,000 ل.ل</p>
+        </div>
+      </div>
+
+      <h4 class="subcategory-subtitle">السندويشات</h4>
+      <div class="item-card">
+        <img src="grilled-chicken.png" alt="Chicken Sandwich">
+        <div class="item-details">
+          <h5>دجاج عالفحم</h5>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="mshabbak.png" alt="Mshabbak Sandwich">
+        <div class="item-details">
+          <h5>مسّحب</h5>
+          <p class="item-price lbp">350,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="tawook.png" alt="Tawook Sandwich">
+        <div class="item-details">
+          <h5>طاووق</h5>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="shakf.png" alt="Shakf Sandwich">
+        <div class="item-details">
+          <h5>شقف</h5>
+          <p class="item-price lbp">350,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kafta.png" alt="Kafta Sandwich">
+        <div class="item-details">
+          <h5>كفتة</h5>
+          <p class="item-price lbp">350,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="sujuk.png" alt="Sujuk Sandwich">
+        <div class="item-details">
+          <h5>سجق</h5>
+          <p class="item-price lbp">350,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="makanek.png" alt="Makanek Sandwich">
+        <div class="item-details">
+          <h5>مقانق</h5>
+          <p class="item-price lbp">350,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="sawda.png" alt="Sawda Sandwich">
+        <div class="item-details">
+          <h5>سودا</h5>
+          <p class="item-price lbp">350,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="potato.png" alt="Potato Sandwich">
+        <div class="item-details">
+          <h5>بطاطا</h5>
+          <p class="item-price lbp">150,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="burger.png" alt="Burger Sandwich">
+        <div class="item-details">
+          <h5>برجر على الفحم</h5>
+          <p class="item-price lbp">400,000 ل.ل</p>
+        </div>
+      </div>
+
+      <h4 class="subcategory-subtitle">الإضافات</h4>
+      <div class="item-card">
+        <img src="fries.png" alt="French Fries">
+        <div class="item-details">
+          <h5>علبة بطاطا</h5>
+          <p class="item-price lbp">220,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="vegetables.png" alt="Vegetables Plate">
+        <div class="item-details">
+          <h5>صحن خضرا</h5>
+          <p class="item-price lbp">120,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="garlic.png" alt="Small Garlic Sauce">
+        <div class="item-details">
+          <h5>علبة ثوم صغير</h5>
+          <p class="item-price lbp">50,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="sauce.png" alt="Small Sauce">
+        <div class="item-details">
+          <h5>علبة صوص صغير</h5>
+          <p class="item-price lbp">50,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="lgarlic.png" alt="Large Garlic Sauce">
+        <div class="item-details">
+          <h5>علبة ثوم كبير</h5>
+          <p class="item-price lbp">100,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="lsauce.png" alt="Large Sauce">
+        <div class="item-details">
+          <h5>علبة صوص كبير</h5>
+          <p class="item-price lbp">100,000 ل.ل</p>
+        </div>
+      </div>
+
+      <h3 class="subcategory-title">معجنات</h3>
+      <h4 class="subcategory-subtitle">مناقيش</h4>
+      <div class="item-card">
+        <img src="akawi-cheese.png" alt="Akawi Cheese">
+        <div class="item-details">
+          <h5>جبنة عكاوي</h5>
+          <p class="item-price lbp">170,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kashkawan-cheese.png" alt="Kashkawan Cheese">
+        <div class="item-details">
+          <h5>جبنة قشقوان</h5>
+          <p class="item-price lbp">170,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="cheese-zaatar.png" alt="Cheese and Zaatar">
+        <div class="item-details">
+          <h5>جبنة وزعتر</h5>
+          <p class="item-price lbp">120,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="zaatar.png" alt="Zaatar">
+        <div class="item-details">
+          <h5>زعتر</h5>
+          <p class="item-price lbp">70,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="spinach.png" alt="Spinach">
+        <div class="item-details">
+          <h5>سبانخ</h5>
+          <p class="item-price lbp">100,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="spinach-cheese.png" alt="Spinach and Cheese">
+        <div class="item-details">
+          <h5>سبانخ وجبنة</h5>
+          <p class="item-price lbp">200,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="onion-tomato.png" alt="Onion and Tomato">
+        <div class="item-details">
+          <h5>بصل وبندورة</h5>
+          <p class="item-price lbp">130,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="onion-tomato.png" alt="Onion, Tomato and Cheese">
+        <div class="item-details">
+          <h5>بصل وبندورة مع جبنة</h5>
+          <p class="item-price lbp">200,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kishk.png" alt="Kishk">
+        <div class="item-details">
+          <h5>كشك</h5>
+          <p class="item-price lbp">130,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kishk.png" alt="Kishk and Cheese">
+        <div class="item-details">
+          <h5>كشك وجبنة</h5>
+          <p class="item-price lbp">200,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="lahme-bi-ajeen.png" alt="Lahme Bi Ajeen">
+        <div class="item-details">
+          <h5>لحمة بعجين</h5>
+          <p class="item-price lbp">260,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="meat-cheese.png" alt="Meat and Cheese">
+        <div class="item-details">
+          <h5>لحمة وجبنة</h5>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="sausage-cheese.png" alt="Sausage and Cheese">
+        <div class="item-details">
+          <h5>سجق وجبنة</h5>
+          <p class="item-price lbp">250,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="mortadella-cheese.png" alt="Mortadella and Cheese">
+        <div class="item-details">
+          <h5>مرتديلا وجبنة</h5>
+          <p class="item-price lbp">250,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="turkey-cheese.png" alt="Turkey and Cheese">
+        <div class="item-details">
+          <h5>حبش وجبنة</h5>
+          <p class="item-price lbp">250,000 ل.ل</p>
+        </div>
+      </div>
+
+      <h4 class="subcategory-subtitle">بيتزا</h4>
+      <div class="item-card">
+        <img src="sujuk-pizza.png" alt="Sausage Pizza">
+        <div class="item-details">
+          <h5>بيتزا سجق</h5>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="mortadella-pizza.png" alt="Mortadella Pizza">
+        <div class="item-details">
+          <h5>بيتزا مرتديلا</h5>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="vegetable-pizza.png" alt="Vegetable Pizza">
+        <div class="item-details">
+          <h5>بيتزا خضرا</h5>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="turkey-pizza.png" alt="Turkey Pizza">
+        <div class="item-details">
+          <h5>بيتزا حبش</h5>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="extra-pizza.png" alt="Extra Pizza">
+        <div class="item-details">
+          <h5>بيتزا إكسترا</h5>
+          <p class="item-price lbp">400,000 ل.ل</p>
+        </div>
+      </div>
+
+      <h4 class="subcategory-subtitle">بيتزا الغدير</h4>
+      <div class="item-card">
+        <img src="ghadirpizza.png" alt="Small Pizza">
+        <div class="item-details">
+          <h5>بيتزا حجم صغير</h5>
+          <p class="item-price lbp">600,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="ghadirpizza.png" alt="Medium Pizza">
+        <div class="item-details">
+          <h5>بيتزا حجم وسط</h5>
+          <p class="item-price lbp">900,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="ghadirpizza.png" alt="Large Pizza">
+        <div class="item-details">
+          <h5>بيتزا حجم كبير</h5>
+          <p class="item-price lbp">1,200,000 ل.ل</p>
+        </div>
+      </div>
+
+      <h4 class="subcategory-subtitle">كعكة</h4>
+      <div class="item-card">
+        <img src="kaak.png" alt="Plain Cake">
+        <div class="item-details">
+          <h5>كعكة سادة</h5>
+          <p class="item-price lbp">80,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Cheese Cake">
+        <div class="item-details">
+          <h5>كعكة جبنة</h5>
+          <p class="item-price lbp">250,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Akawi and Kashkawan Cake">
+        <div class="item-details">
+          <h5>كعكة عكاوي و قشقوان</h5>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Mortadella and Cheese Cake">
+        <div class="item-details">
+          <h5>كعكة مرتديلا وجبنة</h5>
+          <p class="item-price lbp">350,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Sausage and Cheese Cake">
+        <div class="item-details">
+          <h5>كعكة سجق وجبنة</h5>
+          <p class="item-price lbp">350,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Zaatar Cake">
+        <div class="item-details">
+          <h5>كعكة زعتر</h5>
+          <p class="item-price lbp">130,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Cheese and Zaatar Cake">
+        <div class="item-details">
+          <h5>كعكة جبنة وزعتر</h5>
+          <p class="item-price lbp">210,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Cheese and Vegetable Cake">
+        <div class="item-details">
+          <h5>كعكة جبنة وخضرة</h5>
+          <p class="item-price lbp">255,000 ل.ل</p>
+        </div>
+      </div>
+
+      <h4 class="subcategory-subtitle">جريش</h4>
+      <div class="item-card">
+        <img src="jreesh.png" alt="Cheese Garsh">
+        <div class="item-details">
+          <h5>جريش جبنة</h5>
+          <p class="item-price lbp">170,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="jreesh.png" alt="Zaatar Garsh">
+        <div class="item-details">
+          <h5>جريش زعتر</h5>
+          <p class="item-price lbp">70,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="jreesh.png" alt="Cheese and Zaatar Garsh">
+        <div class="item-details">
+          <h5>جريش جبنة وزعتر</h5>
+          <p class="item-price lbp">120,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="jreesh.png" alt="Garsh Pizza">
+        <div class="item-details">
+          <h5>بيتزا جريش</h5>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="jreesh.png" alt="Meat Garsh">
+        <div class="item-details">
+          <h5>جريش لحمة</h5>
+          <p class="item-price lbp">260,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="jreesh.png" alt="Kishk Garsh">
+        <div class="item-details">
+          <h5>جريش كشك</h5>
+          <p class="item-price lbp">130,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="jreesh.png" alt="Onion and Tomato Garsh">
+        <div class="item-details">
+          <h5>جريش بصل وبندورة</h5>
+          <p class="item-price lbp">130,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="jreesh.png" alt="Plain Garsh">
+        <div class="item-details">
+          <h5>جريش سادة</h5>
+          <p class="item-price lbp">50,000 ل.ل</p>
+        </div>
+      </div>
+
+      <h4 class="subcategory-subtitle">كرواسون - Croissant</h4>
+      <div class="item-card">
+        <img src="small-croissant.png" alt="Small Croissant">
+        <div class="item-details">
+          <h5>كرواسون صغير</h5>
+          <p class="item-price lbp">35,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="large-croissant.png" alt="Croissant">
+        <div class="item-details">
+          <h5>كرواسون كبير</h5>
+          <p class="item-price lbp">70,000 ل.ل</p>
+        </div>
+      </div>
+
+      <h4 class="subcategory-subtitle">معجنات</h4>
+      <div class="item-card">
+        <img src="medium-pastry.png" alt="Medium Pastry">
+        <div class="item-details">
+          <h5>دزينة معجنات حجم كبير</h5>
+          <p class="item-price lbp">500,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="small-pastry.png" alt="Small Pastry">
+        <div class="item-details">
+          <h5>دزينة معجنات حجم صغير</h5>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Breads Category -->
+    <div id="breads" class="menu-section">
+      <h3 class="subcategory-title">صفيحة بعلبكية</h3>
+      <div class="item-card">
+        <img src="ndsfiha.png" alt="Half Dozen Sfiha">
+        <div class="item-details">
+          <h5>نص دزدينة صفيحة</h5>
+          <p class="item-price lbp">235,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="dsfiha.png" alt="Dozen Sfiha">
+        <div class="item-details">
+          <h5>دزدينة صفيحة</h5>
+          <p class="item-price lbp">470,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="nksfiha.png" alt="Half Kilo Sfiha">
+        <div class="item-details">
+          <h5>نص كيلو صفيحة</h5>
+          <p class="item-price lbp">1,410,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="ksfiha.png" alt="Kilo Sfiha">
+        <div class="item-details">
+          <h5>كيلو صفيحة</h5>
+          <p class="item-price lbp">2,820,000 ل.ل</p>
+        </div>
+      </div>
+
+      <h3 class="subcategory-title">لحمة بعجين</h3>
+      <div class="item-card">
+        <img src="ndlahme-bi-ajeen.png" alt="Half Dozen Lahme Bi Ajeen">
+        <div class="item-details">
+          <h5>نص دزدينة لحمة بعجين</h5>
+          <p class="item-price lbp">450,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="dlahme-bi-ajeen.png" alt="Dozen Lahme Bi Ajeen">
+        <div class="item-details">
+          <h5>دزدينة لحمة بعجين</h5>
+          <p class="item-price lbp">900,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="nklahme-bi-ajeen.png" alt="Half Kilo Lahme Bi Ajeen">
+        <div class="item-details">
+          <h5>نص كيلو لحمة بعجين</h5>
+          <p class="item-price lbp">1,125,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="klahme-bi-ajeen.png" alt="Kilo Lahme Bi Ajeen">
+        <div class="item-details">
+          <h5>كيلو لحمة بعجين</h5>
+          <p class="item-price lbp">2,250,000 ل.ل</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pizza Category -->
+    <div id="pizza" class="menu-section">
+      <h3 class="subcategory-title">Italian Pizza</h3>
+      <div class="item-card">
+        <img src="margherita.png" alt="Margherita">
+        <div class="item-details">
+          <h5>Margherita Pizza</h5>
+          <p class="item-price lbp">800,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="pepperoni.png" alt="Pepperoni">
+        <div class="item-details">
+          <h5>Pepperoni Pizza</h5>
+          <p class="item-price lbp">900,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="vegetarian-pizza.png" alt="Vegetarian">
+        <div class="item-details">
+          <h5>Vegetarian Pizza</h5>
+          <p class="item-price lbp">770,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="mushroom-pizza.png" alt="Fungi">
+        <div class="item-details">
+          <h5>Fungi Pizza</h5>
+          <p class="item-price lbp">1,200,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="sausage-pizza.png" alt="Sojuk">
+        <div class="item-details">
+          <h5>Sojuk Pizza</h5>
+          <p class="item-price lbp">950,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="seafood-pizza.png" alt="Shrimp">
+        <div class="item-details">
+          <h5>Shrimp Pizza</h5>
+          <p class="item-price lbp">1,320,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="chicken-pizza.png" alt="BBQ Chicken">
+        <div class="item-details">
+          <h5>BBQ Chicken Pizza</h5>
+          <p class="item-price lbp">1,120,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="vegetarian-pizza.png" alt="Vegeteroni">
+        <div class="item-details">
+          <h5>Vegeteroni Pizza</h5>
+          <p class="item-price lbp">820,000 ل.ل</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grill Category -->
+    <div id="grill" class="menu-section">
+      <h3 class="subcategory-title">المشاوي</h3>
+      <div class="item-card">
+        <img src="grill-mix.png" alt="Grill Mix">
+        <div class="item-details">
+          <h5>كيلو مشاوي مع سيرفيس</h5>
+          <p class="item-price lbp">2,000,000 ل.ل</p>
+        </div>
+      </div>
+
+      <h4 class="subcategory-subtitle">السندويشات</h4>
+      <div class="item-card">
+        <img src="grilled-chicken.png" alt="Chicken Sandwich">
+        <div class="item-details">
+          <h5>دجاج عالفحم</h5>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="mshabbak.png" alt="Mshabbak Sandwich">
+        <div class="item-details">
+          <h5>مسّحب</h5>
+          <p class="item-price lbp">350,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="tawook.png" alt="Tawook Sandwich">
+        <div class="item-details">
+          <h5>طاووق</h5>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="shakf.png" alt="Shakf Sandwich">
+        <div class="item-details">
+          <h5>شقف</h5>
+          <p class="item-price lbp">350,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kafta.png" alt="Kafta Sandwich">
+        <div class="item-details">
+          <h5>كفتة</h5>
+          <p class="item-price lbp">350,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="sujuk.png" alt="Sujuk Sandwich">
+        <div class="item-details">
+          <h5>سجق</h5>
+          <p class="item-price lbp">350,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="makanek.png" alt="Makanek Sandwich">
+        <div class="item-details">
+          <h5>مقانق</h5>
+          <p class="item-price lbp">350,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="sawda.png" alt="Sawda Sandwich">
+        <div class="item-details">
+          <h5>سودا</h5>
+          <p class="item-price lbp">350,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="potato.png" alt="Potato Sandwich">
+        <div class="item-details">
+          <h5>بطاطا</h5>
+          <p class="item-price lbp">150,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="burger.png" alt="Burger Sandwich">
+        <div class="item-details">
+          <h5>برجر على الفحم</h5>
+          <p class="item-price lbp">400,000 ل.ل</p>
+        </div>
+      </div>
+
+      <h4 class="subcategory-subtitle">الإضافات</h4>
+      <div class="item-card">
+        <img src="fries.png" alt="French Fries">
+        <div class="item-details">
+          <h5>علبة بطاطا</h5>
+          <p class="item-price lbp">220,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="vegetables.png" alt="Vegetables Plate">
+        <div class="item-details">
+          <h5>صحن خضرا</h5>
+          <p class="item-price lbp">120,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="garlic.png" alt="Small Garlic Sauce">
+        <div class="item-details">
+          <h5>علبة ثوم صغير</h5>
+          <p class="item-price lbp">50,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="sauce.png" alt="Small Sauce">
+        <div class="item-details">
+          <h5>علبة صوص صغير</h5>
+          <p class="item-price lbp">50,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="lgarlic.png" alt="Large Garlic Sauce">
+        <div class="item-details">
+          <h5>علبة ثوم كبير</h5>
+          <p class="item-price lbp">100,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="sauce.png" alt="Large Sauce">
+        <div class="item-details">
+          <h5>علبة صوص كبير</h5>
+          <p class="item-price lbp">100,000 ل.ل</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pastries Category -->
+    <div id="pastries" class="menu-section">
+      <h3 class="subcategory-title">معجنات</h3>
+      <h4 class="subcategory-subtitle">مناقيش</h4>
+      <div class="item-card">
+        <img src="akawi-cheese.png" alt="Akawi Cheese">
+        <div class="item-details">
+          <h5>جبنة عكاوي</h5>
+          <p class="item-price lbp">170,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kashkawan-cheese.png" alt="Kashkawan Cheese">
+        <div class="item-details">
+          <h5>جبنة قشقوان</h5>
+          <p class="item-price lbp">170,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="cheese-zaatar.png" alt="Cheese and Zaatar">
+        <div class="item-details">
+          <h5>جبنة وزعتر</h5>
+          <p class="item-price lbp">120,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="zaatar.png" alt="Zaatar">
+        <div class="item-details">
+          <h5>زعتر</h5>
+          <p class="item-price lbp">70,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="spinach.png" alt="Spinach">
+        <div class="item-details">
+          <h5>سبانخ</h5>
+          <p class="item-price lbp">100,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="spinach-cheese.png" alt="Spinach and Cheese">
+        <div class="item-details">
+          <h5>سبانخ وجبنة</h5>
+          <p class="item-price lbp">200,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="onion-tomato.png" alt="Onion and Tomato">
+        <div class="item-details">
+          <h5>بصل وبندورة</h5>
+          <p class="item-price lbp">130,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="onion-tomato.png" alt="Onion, Tomato and Cheese">
+        <div class="item-details">
+          <h5>بصل وبندورة مع جبنة</h5>
+          <p class="item-price lbp">200,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kishk.png" alt="Kishk">
+        <div class="item-details">
+          <h5>كشك</h5>
+          <p class="item-price lbp">130,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kishk.png" alt="Kishk and Cheese">
+        <div class="item-details">
+          <h5>كشك وجبنة</h5>
+          <p class="item-price lbp">200,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="lahme-bi-ajeen.png" alt="Lahme Bi Ajeen">
+        <div class="item-details">
+          <h5>لحمة بعجين</h5>
+          <p class="item-price lbp">260,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="meat-cheese.png" alt="Meat and Cheese">
+        <div class="item-details">
+          <h5>لحمة وجبنة</h5>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="sausage-cheese.png" alt="Sausage and Cheese">
+        <div class="item-details">
+          <h5>سجق وجبنة</h5>
+          <p class="item-price lbp">250,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="mortadella-cheese.png" alt="Mortadella and Cheese">
+        <div class="item-details">
+          <h5>مرتديلا وجبنة</h5>
+          <p class="item-price lbp">250,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="turkey-cheese.png" alt="Turkey and Cheese">
+        <div class="item-details">
+          <h5>حبش وجبنة</h5>
+          <p class="item-price lbp">250,000 ل.ل</p>
+        </div>
+      </div>
+
+      <h4 class="subcategory-subtitle">بيتزا</h4>
+      <div class="item-card">
+        <img src="sujuk-pizza.png" alt="Sausage Pizza">
+        <div class="item-details">
+          <h5>بيتزا سجق</h5>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="mortadella-pizza.png" alt="Mortadella Pizza">
+        <div class="item-details">
+          <h5>بيتزا مرتديلا</h5>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="vegetable-pizza.png" alt="Vegetable Pizza">
+        <div class="item-details">
+          <h5>بيتزا خضرا</h5>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="turkey-pizza.png" alt="Turkey Pizza">
+        <div class="item-details">
+          <h5>بيتزا حبش</h5>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="extra-pizza.png" alt="Extra Pizza">
+        <div class="item-details">
+          <h5>بيتزا إكسترا</h5>
+          <p class="item-price lbp">400,000 ل.ل</p>
+        </div>
+      </div>
+
+      <h4 class="subcategory-subtitle">بيتزا الغدير</h4>
+      <div class="item-card">
+        <img src="ghadirpizza.png" alt="Small Pizza">
+        <div class="item-details">
+          <h5>بيتزا حجم صغير</h5>
+          <p class="item-price lbp">600,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="ghadirpizza.png" alt="Medium Pizza">
+        <div class="item-details">
+          <h5>بيتزا حجم وسط</h5>
+          <p class="item-price lbp">900,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="ghadirpizza.png" alt="Large Pizza">
+        <div class="item-details">
+          <h5>بيتزا حجم كبير</h5>
+          <p class="item-price lbp">1,200,000 ل.ل</p>
+        </div>
+      </div>
+
+      <h4 class="subcategory-subtitle">كعكة</h4>
+      <div class="item-card">
+        <img src="kaak.png" alt="Plain Cake">
+        <div class="item-details">
+          <h5>كعكة سادة</h5>
+          <p class="item-price lbp">80,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Cheese Cake">
+        <div class="item-details">
+          <h5>كعكة جبنة</h5>
+          <p class="item-price lbp">250,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Akawi and Kashkawan Cake">
+        <div class="item-details">
+          <h5>كعكة عكاوي و قشقوان</h5>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Mortadella and Cheese Cake">
+        <div class="item-details">
+          <h5>كعكة مرتديلا وجبنة</h5>
+          <p class="item-price lbp">350,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Sausage and Cheese Cake">
+        <div class="item-details">
+          <h5>كعكة سجق وجبنة</h5>
+          <p class="item-price lbp">350,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Zaatar Cake">
+        <div class="item-details">
+          <h5>كعكة زعتر</h5>
+          <p class="item-price lbp">130,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Cheese and Zaatar Cake">
+        <div class="item-details">
+          <h5>كعكة جبنة وزعتر</h5>
+          <p class="item-price lbp">210,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Cheese and Vegetable Cake">
+        <div class="item-details">
+          <h5>كعكة جبنة وخضرة</h5>
+          <p class="item-price lbp">255,000 ل.ل</p>
+        </div>
+      </div>
+
+      <h4 class="subcategory-subtitle">جريش</h4>
+      <div class="item-card">
+        <img src="jreesh.png" alt="Cheese Garsh">
+        <div class="item-details">
+          <h5>جريش جبنة</h5>
+          <p class="item-price lbp">170,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="jreesh.png" alt="Zaatar Garsh">
+        <div class="item-details">
+          <h5>جريش زعتر</h5>
+          <p class="item-price lbp">70,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="jreesh.png" alt="Cheese and Zaatar Garsh">
+        <div class="item-details">
+          <h5>جريش جبنة وزعتر</h5>
+          <p class="item-price lbp">120,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="jreesh.png" alt="Garsh Pizza">
+        <div class="item-details">
+          <h5>بيتزا جريش</h5>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="jreesh.png" alt="Meat Garsh">
+        <div class="item-details">
+          <h5>جريش لحمة</h5>
+          <p class="item-price lbp">260,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="jreesh.png" alt="Kishk Garsh">
+        <div class="item-details">
+          <h5>جريش كشك</h5>
+          <p class="item-price lbp">130,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="jreesh.png" alt="Onion and Tomato Garsh">
+        <div class="item-details">
+          <h5>جريش بصل وبندورة</h5>
+          <p class="item-price lbp">130,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="jreesh.png" alt="Plain Garsh">
+        <div class="item-details">
+          <h5>جريش سادة</h5>
+          <p class="item-price lbp">50,000 ل.ل</p>
+        </div>
+      </div>
+
+      <h4 class="subcategory-subtitle">كرواسون - Croissant</h4>
+      <div class="item-card">
+        <img src="small-croissant.png" alt="Small Croissant">
+        <div class="item-details">
+          <h5>كرواسون صغير</h5>
+          <p class="item-price lbp">35,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="large-croissant.png" alt="Croissant">
+        <div class="item-details">
+          <h5>كرواسون كبير</h5>
+          <p class="item-price lbp">70,000 ل.ل</p>
+        </div>
+      </div>
+
+      <h4 class="subcategory-subtitle">معجنات</h4>
+      <div class="item-card">
+        <img src="medium-pastry.png" alt="Medium Pastry">
+        <div class="item-details">
+          <h5>دزينة معجنات حجم كبير</h5>
+          <p class="item-price lbp">500,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="small-pastry.png" alt="Small Pastry">
+        <div class="item-details">
+          <h5>دزينة معجنات حجم صغير</h5>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script>
+    function showCategory(event, categoryId) {
+      // Hide all sections
+      document.querySelectorAll('.menu-section').forEach(section => {
+        section.classList.remove('active');
+      });
+
+      // Show the selected category
+      document.getElementById(categoryId).classList.add('active');
+
+      // Update button states
+      document.querySelectorAll('.category-buttons button').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+
+      // Center the selected button
+      const categoryButtons = document.querySelector('.category-buttons');
+      const selectedButton = event.target;
+      const containerWidth = categoryButtons.offsetWidth;
+      const buttonWidth = selectedButton.offsetWidth;
+      const buttonLeft = selectedButton.offsetLeft;
+      
+      // Calculate the scroll position to center the button
+      const scrollPosition = buttonLeft - (containerWidth / 2) + (buttonWidth / 2);
+      
+      // Smooth scroll to center the button
+      categoryButtons.scrollTo({
+        left: scrollPosition,
+        behavior: 'smooth'
+      });
+
+      // Scroll to the top of the page
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  </script>
+
+  <!-- Add this right before the closing body tag -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-logo">
+        <img src="ghadirlogo.PNG" alt="مخبز الغدير">
+      </div>
+      <div class="footer-info">
+        <div class="location-text">
+          <i class="fas fa-map-marker-alt"></i>
+          <a href="https://www.google.com/maps/place/AL+GHADEER+HOSH/@33.2498426,35.2277757,592m/data=!3m1!1e3!4m6!3m5!1s0x151e8763e8760c45:0xd05b4ea1965eb05d!8m2!3d33.2495286!4d35.228752!16s%2Fg%2F11xggmx78m?entry=ttu&g_ep=EgoyMDI1MDUyMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" style="color: inherit; text-decoration: none;">
+            <span>الحوش</span>
+          </a>
+        </div>
+        <div class="social-buttons">
+          <a href="https://wa.me/96178924100" class="social-button whatsapp" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+          <a href="https://www.instagram.com/al_ghadeer.bakery" class="social-button instagram" target="_blank">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
+
