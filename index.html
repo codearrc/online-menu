@@ -117,6 +117,80 @@
       isolation: isolate;
     }
 
+    .subcategory-buttons {
+      display: none;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      padding: 1rem 1.2rem;
+      background: linear-gradient(135deg, #1a5f7a 0%, #2c3e50 100%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      width: 100%;
+      margin: 0;
+      box-sizing: border-box;
+      position: relative;
+      isolation: isolate;
+      justify-content: center;
+      animation: slideDown 0.3s ease-out;
+    }
+
+    .subcategory-buttons.active {
+      display: flex;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .subcategory-btn {
+      flex: 0 0 auto;
+      white-space: nowrap;
+      font-size: 0.9rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      background: rgba(255, 255, 255, 0.1);
+      font-weight: 500;
+      text-transform: none;
+      letter-spacing: 0.3px;
+      position: relative;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+      font-family: 'Cairo', sans-serif;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .subcategory-btn:hover {
+      background: var(--accent-color);
+      color: white;
+      border-color: var(--accent-color);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+    }
+
+    .subcategory-btn.active {
+      background: var(--accent-color);
+      color: white;
+      border-color: var(--accent-color);
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(46, 204, 113, 0.4);
+    }
+
+    .subcategory-btn:active {
+      transform: scale(0.95);
+    }
+
     .category-btn {
       flex: 0 0 auto;
       white-space: nowrap;
@@ -373,6 +447,7 @@
       justify-content: flex-end;
       align-items: center;
       gap: 1rem;
+      scroll-margin-top: 120px; /* Account for sticky header */
     }
 
     .subcategory-title .english {
@@ -398,6 +473,7 @@
       justify-content: flex-end;
       align-items: center;
       gap: 1rem;
+      scroll-margin-top: 120px; /* Account for sticky header */
     }
 
     .subcategory-subtitle .english {
@@ -627,6 +703,32 @@
       user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
+    }
+
+    /* Improved scrolling behavior */
+    html {
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    body {
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+    }
+
+    /* Better subcategory button interaction */
+    .subcategory-btn {
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .subcategory-btn:active {
+      transform: scale(0.95);
+    }
+
+    .subcategory-btn.scrolling {
+      pointer-events: none;
+      opacity: 0.7;
     }
 
     /* Mobile Optimizations */
@@ -874,8 +976,16 @@
       <button class="category-btn active" onclick="showCategory(event, 'specials')">الكل - All</button>
       <button class="category-btn" onclick="showCategory(event, 'breads')">صفيحة بعلبكية و لحمة بعجين</button>
       <button class="category-btn" onclick="showCategory(event, 'pizza')">Italian Pizza</button>
+      <button class="category-btn" onclick="showCategory(event, 'meat')">لحمة</button>
       <button class="category-btn" onclick="showCategory(event, 'grill')">المشاوي</button>
       <button class="category-btn" onclick="showCategory(event, 'pastries')">معجنات</button>
+      <button class="category-btn" onclick="showCategory(event, 'sauces')">الصوص والإضافات</button>
+      <button class="category-btn" onclick="showCategory(event, 'drinks')">مرطبات</button>
+    </div>
+
+    <!-- Subcategory Navigation -->
+    <div id="subcategory-buttons" class="subcategory-buttons">
+      <!-- Subcategory buttons will be dynamically generated -->
     </div>
   </header>
 
@@ -889,7 +999,7 @@
         <div class="item-details">
           <h5>نص دزدينة صفيحة</h5>
           <p class="item-description">٦ قطع شهية من الصفيحة</p>
-          <p class="item-price lbp">235,000 ل.ل</p>
+          <p class="item-price lbp">210,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -897,7 +1007,7 @@
         <div class="item-details">
           <h5>دزدينة صفيحة</h5>
           <p class="item-description">١٢ قطعة شهية من الصفيحة</p>
-          <p class="item-price lbp">470,000 ل.ل</p>
+          <p class="item-price lbp">420,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -905,7 +1015,7 @@
         <div class="item-details">
           <h5>نص كيلو صفيحة</h5>
           <p class="item-description">حوالي ١٨ قطعة شهية من الصفيحة</p>
-          <p class="item-price lbp">1,410,000 ل.ل</p>
+          <p class="item-price lbp">1,125,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -913,7 +1023,7 @@
         <div class="item-details">
           <h5>كيلو صفيحة</h5>
           <p class="item-description">حوالي ٣٦ قطعة شهية من الصفيحة</p>
-          <p class="item-price lbp">2,820,000 ل.ل</p>
+          <p class="item-price lbp">2,250,000 ل.ل</p>
         </div>
       </div>
 
@@ -1017,174 +1127,296 @@
         </div>
       </div>
 
-      <h3 class="subcategory-title">المشاوي</h3>
+      <h3 class="subcategory-title">لحمة</h3>
       <div class="item-card">
-        <img src="grill-mix.png" alt="Grill Mix">
+        <img src="meat-regular.png" alt="Regular Meat">
         <div class="item-details">
-          <h5>كيلو مشاوي مع سيرفيس</h5>
-          <p class="item-description">مشاوي مشكّلة مع سيرفيس (حوالي ١٤ سيخ)</p>
+          <h5>كيلو لحمة عادي</h5>
+          <p class="item-description">لحمة عادية طازجة</p>
+          <p class="item-price lbp">1,200,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="meat-grill.png" alt="Grill Meat">
+        <div class="item-details">
+          <h5>كيلو لحمة للشوي</h5>
+          <p class="item-description">لحمة مخصصة للشوي</p>
+          <p class="item-price lbp">1,300,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="meat-lean.png" alt="Lean Meat">
+        <div class="item-details">
+          <h5>كيلو هبرة</h5>
+          <p class="item-description">لحمة هبرة خالية من الدهون</p>
+          <p class="item-price lbp">1,300,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="meat-liver.png" alt="Liver">
+        <div class="item-details">
+          <h5>كيلو سودا</h5>
+          <p class="item-description">كبد طازج</p>
+          <p class="item-price lbp">1,100,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="meat-smooth.png" alt="Smooth Meat">
+        <div class="item-details">
+          <h5>كيلو ملسة</h5>
+          <p class="item-description">لحمة ملسة طرية</p>
+          <p class="item-price lbp">1,200,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="meat-fillet.png" alt="Fillet">
+        <div class="item-details">
+          <h5>كيلو فتيلة</h5>
+          <p class="item-description">لحمة فتيلة مميزة</p>
+          <p class="item-price lbp">1,800,000 ل.ل</p>
+        </div>
+      </div>
+
+      <h3 class="subcategory-title">مشاوي</h3>
+      <div class="item-card">
+        <img src="grilled-meat.png" alt="Grilled Meat">
+        <div class="item-details">
+          <h5>كيلو لحمة مشوية</h5>
+          <p class="item-description">كيلو لحمة مشوية طازجة</p>
           <p class="item-price lbp">2,000,000 ل.ل</p>
         </div>
       </div>
 
-      <h4 class="subcategory-subtitle">السندويشات</h4>
       <div class="item-card">
-        <img src="grilled-chicken.png" alt="Chicken Sandwich">
+        <img src="grilled-kafta.png" alt="Grilled Kafta">
         <div class="item-details">
-          <h5>دجاج عالفحم</h5>
-          <p class="item-description">ساندويش دجاج عالفحم متبل ومشوي مع صلصتنا الخاصة</p>
-          <p class="item-price lbp">300,000 ل.ل</p>
+          <h5>كيلو كفتة مشوي</h5>
+          <p class="item-description">كيلو كفتة مشوية طازجة</p>
+          <p class="item-price lbp">2,000,000 ل.ل</p>
         </div>
       </div>
+
       <div class="item-card">
-        <img src="mshabbak.png" alt="Mshabbak Sandwich">
+        <img src="grilled-liver.png" alt="Grilled Liver">
         <div class="item-details">
-          <h5>مسّحب</h5>
-          <p class="item-description">ساندويش مسّحب طري مع صلصة شهية</p>
+          <h5>كيلو سودا مشوي</h5>
+          <p class="item-description">كيلو سودا مشوية طازجة</p>
+          <p class="item-price lbp">2,000,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="grilled-tawook.png" alt="Grilled Tawook">
+        <div class="item-details">
+          <h5>كيلو طاووق مشوي</h5>
+          <p class="item-description">كيلو طاووق مشوي طازج</p>
+          <p class="item-price lbp">1,800,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="skewer-shish.png" alt="Skewer Shish">
+        <div class="item-details">
+          <h5>سيخ شقف / كفتة (بدون سرفيس)</h5>
+          <p class="item-description">سيخ شقف أو كفتة بدون سرفيس</p>
+          <p class="item-price lbp">200,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="skewer-shish-service.png" alt="Skewer Shish with Service">
+        <div class="item-details">
+          <h5>سيخ شقف كفتة (مع سرفيس)</h5>
+          <p class="item-description">سيخ شقف كفتة مع سرفيس</p>
           <p class="item-price lbp">350,000 ل.ل</p>
         </div>
       </div>
+
+      <div class="item-card">
+        <img src="skewer-tawook.png" alt="Skewer Tawook">
+        <div class="item-details">
+          <h5>سيخ طاووق (بدون سرفيس)</h5>
+          <p class="item-description">سيخ طاووق بدون سرفيس</p>
+          <p class="item-price lbp">180,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="skewer-tawook-service.png" alt="Skewer Tawook with Service">
+        <div class="item-details">
+          <h5>سيخ طاووق (مع سرفيس)</h5>
+          <p class="item-description">سيخ طاووق مع سرفيس</p>
+          <p class="item-price lbp">350,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="meal-shish.png" alt="Meal Shish">
+        <div class="item-details">
+          <h5>وجبة (4) سياخ شقف كفتة) + سرفيس</h5>
+          <p class="item-description">وجبة 4 سياخ شقف كفتة مع سرفيس</p>
+          <p class="item-price lbp">1,000,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="meal-tawook.png" alt="Meal Tawook">
+        <div class="item-details">
+          <h5>وجبة (4) سياخ طاووق + سرفيس</h5>
+          <p class="item-description">وجبة 4 سياخ طاووق مع سرفيس</p>
+          <p class="item-price lbp">900,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="meal-mixed.png" alt="Mixed Meal">
+        <div class="item-details">
+          <h5>وجبة (2) سيخ شقف / كفتة + 2 سيخ طاووق) + سرفيس</h5>
+          <p class="item-description">وجبة 2 سيخ شقف/كفتة + 2 سيخ طاووق مع سرفيس</p>
+          <p class="item-price lbp">950,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="half-kilo-shish.png" alt="Half Kilo Shish">
+        <div class="item-details">
+          <h5>نص كيلو شقف / كفتة + سرفيس</h5>
+          <p class="item-description">نص كيلو شقف أو كفتة مع سرفيس</p>
+          <p class="item-price lbp">1,200,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="half-kilo-tawook.png" alt="Half Kilo Tawook">
+        <div class="item-details">
+          <h5>نص كيلو طاووق + سرفيس</h5>
+          <p class="item-description">نص كيلو طاووق مع سرفيس</p>
+          <p class="item-price lbp">1,080,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="grilled-chicken.png" alt="Grilled Chicken">
+        <div class="item-details">
+          <h5>فروج عل فحم</h5>
+          <p class="item-description">فروج مشوي على الفحم</p>
+          <p class="item-price lbp">1,450,000 ل.ل</p>
+        </div>
+      </div>
+
+      <h4 class="subcategory-subtitle">سندويشات</h4>
+      <div class="item-card">
+        <img src="grilled-chicken.png" alt="Chicken Sandwich">
+        <div class="item-details">
+          <h5>دجاج عل فحم</h5>
+          <p class="item-description">ساندويش دجاج مشوي على الفحم</p>
+          <p class="item-price lbp">350,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="mshabbak.png" alt="Mshabbak Sandwich">
+        <div class="item-details">
+          <h5>مسحب</h5>
+          <p class="item-description">ساندويش مسحب طري</p>
+          <p class="item-price lbp">400,000 ل.ل</p>
+        </div>
+      </div>
+
       <div class="item-card">
         <img src="tawook.png" alt="Tawook Sandwich">
         <div class="item-details">
-          <h5>طاووق</h5>
-          <p class="item-description">ساندويش طاووق متبل مع صلصة الغدير الخاصة</p>
-          <p class="item-price lbp">300,000 ل.ل</p>
+          <h5>طاوق</h5>
+          <p class="item-description">ساندويش طاوق متبل</p>
+          <p class="item-price lbp">350,000 ل.ل</p>
         </div>
       </div>
+
       <div class="item-card">
         <img src="shakf.png" alt="Shakf Sandwich">
         <div class="item-details">
           <h5>شقف</h5>
-          <p class="item-description">ساندويش شقف لحم مشوي مع صلصة مميزة</p>
+          <p class="item-description">ساندويش شقف لحم مشوي</p>
           <p class="item-price lbp">350,000 ل.ل</p>
         </div>
       </div>
+
       <div class="item-card">
         <img src="kafta.png" alt="Kafta Sandwich">
         <div class="item-details">
           <h5>كفتة</h5>
-          <p class="item-description">ساندويش كفتة مشوية مع صلصة لذيذة</p>
+          <p class="item-description">ساندويش كفتة مشوية</p>
           <p class="item-price lbp">350,000 ل.ل</p>
         </div>
       </div>
+
       <div class="item-card">
         <img src="sujuk.png" alt="Sujuk Sandwich">
         <div class="item-details">
           <h5>سجق</h5>
-          <p class="item-description">ساندويش سجق حار مع صلصة خاصة</p>
+          <p class="item-description">ساندويش سجق حار</p>
           <p class="item-price lbp">350,000 ل.ل</p>
         </div>
       </div>
+
       <div class="item-card">
         <img src="makanek.png" alt="Makanek Sandwich">
         <div class="item-details">
           <h5>مقانق</h5>
-          <p class="item-description">ساندويش مقانق لبنانية مع صلصة فريدة</p>
+          <p class="item-description">ساندويش مقانق لبنانية</p>
           <p class="item-price lbp">350,000 ل.ل</p>
         </div>
       </div>
+
       <div class="item-card">
         <img src="sawda.png" alt="Sawda Sandwich">
         <div class="item-details">
-          <h5>سودا</h5>
-          <p class="item-description">ساندويش سودا مشوية مع صلصة مميزة</p>
+          <h5>سودة</h5>
+          <p class="item-description">ساندويش سودة مشوية</p>
           <p class="item-price lbp">350,000 ل.ل</p>
         </div>
       </div>
+
       <div class="item-card">
-        <img src="sawdaniyeh.png" alt="sawdaniyeh Sandwich">
+        <img src="malseh.png" alt="Malseh Sandwich">
         <div class="item-details">
-          <h5>سودة نية</h5>
-          <p class="item-description">ساندويش سودا نية مع صلصة خاصة</p>
+          <h5>ملسة</h5>
+          <p class="item-description">ساندويش ملسة لحم</p>
           <p class="item-price lbp">350,000 ل.ل</p>
         </div>
       </div>
-      <div class="item-card">
-        <img src="malseh.png" alt="malseh Sandwich">
-        <div class="item-details">
-          <h5>ملسِة</h5>
-          <p class="item-description">ساندويش ملسِة لحم مع صلصة شهية</p>
-          <p class="item-price lbp">350,000 ل.ل</p>
-        </div>
-      </div>
-      <div class="item-card">
-        <img src="shakf.png" alt="sekhen Sandwich">
-        <div class="item-details">
-          <h5>على السيخين</h5>
-          <p class="item-description">ساندويش لحم مشوي على السيخين مع صلصة الغدير</p>
-          <p class="item-price lbp">350,000 ل.ل</p>
-        </div>
-      </div>
-      <div class="item-card">
-        <img src="burger.png" alt="Burger Sandwich">
-        <div class="item-details">
-          <h5>برجر على الفحم</h5>
-          <p class="item-description">برجر لحم مشوي على الفحم مع صلصة البرجر الخاصة</p>
-          <p class="item-price lbp">400,000 ل.ل</p>
-        </div>
-      </div>
+
       <div class="item-card">
         <img src="potato.png" alt="Potato Sandwich">
         <div class="item-details">
           <h5>بطاطا</h5>
-          <p class="item-description">ساندويش بطاطا مقرمشة مع صلصة البطاطا</p>
+          <p class="item-description">ساندويش بطاطا مقرمشة</p>
           <p class="item-price lbp">150,000 ل.ل</p>
         </div>
       </div>
 
-      <h4 class="subcategory-subtitle">الإضافات</h4>
       <div class="item-card">
-        <img src="fries.png" alt="French Fries">
+        <img src="burger.png" alt="Burger Sandwich">
         <div class="item-details">
-          <h5>علبة بطاطا</h5>
-          <p class="item-price lbp">220,000 ل.ل</p>
-        </div>
-      </div>
-      <div class="item-card">
-        <img src="vegetables.png" alt="Vegetables Plate">
-        <div class="item-details">
-          <h5>صحن خضرا</h5>
-          <p class="item-price lbp">120,000 ل.ل</p>
-        </div>
-      </div>
-      <div class="item-card">
-        <img src="garlic.png" alt="Small Garlic Sauce">
-        <div class="item-details">
-          <h5>علبة ثوم صغير</h5>
-          <p class="item-price lbp">50,000 ل.ل</p>
-        </div>
-      </div>
-      <div class="item-card">
-        <img src="sauce.png" alt="Small Sauce">
-        <div class="item-details">
-          <h5>علبة صوص صغير</h5>
-          <p class="item-price lbp">50,000 ل.ل</p>
-        </div>
-      </div>
-      <div class="item-card">
-        <img src="lgarlic.png" alt="Large Garlic Sauce">
-        <div class="item-details">
-          <h5>علبة ثوم كبير</h5>
-          <p class="item-price lbp">100,000 ل.ل</p>
-        </div>
-      </div>
-      <div class="item-card">
-        <img src="lsauce.png" alt="Large Sauce">
-        <div class="item-details">
-          <h5>علبة صوص كبير</h5>
-          <p class="item-price lbp">100,000 ل.ل</p>
+          <h5>برغر على الفحم</h5>
+          <p class="item-description">برغر لحم مشوي على الفحم</p>
+          <p class="item-price lbp">400,000 ل.ل</p>
         </div>
       </div>
 
-      <h3 class="subcategory-title">معجنات</h3>
+      <h3 class="subcategory-title">المعجّنات</h3>
       <h4 class="subcategory-subtitle">مناقيش</h4>
       <div class="item-card">
         <img src="akawi-cheese.png" alt="Akawi Cheese">
         <div class="item-details">
           <h5>جبنة عكاوي</h5>
           <p class="item-description">منقوشة جبنة عكاوي لبنانية أصلية بطعم غني ومميز</p>
-          <p class="item-price lbp">170,000 ل.ل</p>
+          <p class="item-price lbp">180,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1208,7 +1440,7 @@
         <div class="item-details">
           <h5>زعتر</h5>
           <p class="item-description">زعتر بلدي مع زيت الزيتون على الطريقة التقليدية</p>
-          <p class="item-price lbp">70,000 ل.ل</p>
+          <p class="item-price lbp">75,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1216,7 +1448,7 @@
         <div class="item-details">
           <h5>سبانخ</h5>
           <p class="item-description">سبانخ طازجة متبلة ومحشوة بعجينة طرية</p>
-          <p class="item-price lbp">100,000 ل.ل</p>
+          <p class="item-price lbp">80,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1224,7 +1456,7 @@
         <div class="item-details">
           <h5>سبانخ وجبنة</h5>
           <p class="item-description">سبانخ طازجة مع جبنة  في عجينة شهية</p>
-          <p class="item-price lbp">200,000 ل.ل</p>
+          <p class="item-price lbp">180,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1264,7 +1496,7 @@
         <div class="item-details">
           <h5>لحمة بعجين</h5>
           <p class="item-description">لحمة بعجين على الطريقة البعلبكية التقليدية</p>
-          <p class="item-price lbp">260,000 ل.ل</p>
+          <p class="item-price lbp">200,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1272,7 +1504,7 @@
         <div class="item-details">
           <h5>لحمة وجبنة</h5>
           <p class="item-description">لحمة بعجين مع جبنة لمذاق غني</p>
-          <p class="item-price lbp">300,000 ل.ل</p>
+          <p class="item-price lbp">240,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1296,7 +1528,7 @@
         <div class="item-details">
           <h5>حبش وجبنة</h5>
           <p class="item-description">حبش مدخن مع جبنة لمذاق شهي</p>
-          <p class="item-price lbp">250,000 ل.ل</p>
+          <p class="item-price lbp">280,000 ل.ل</p>
         </div>
       </div>
 
@@ -1321,7 +1553,7 @@
         <div class="item-details">
           <h5>فاهيتا وجبنة</h5>
           <p class="item-description">منقوشة فاهيتا الدجاج مع جبنة </p>
-          <p class="item-price lbp">270,000 ل.ل</p>
+          <p class="item-price lbp">300,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1329,7 +1561,7 @@
         <div class="item-details">
           <h5>طاووق وجبنة</h5>
           <p class="item-description">منقوشة طاووق متبل مع جبنة شهية</p>
-          <p class="item-price lbp">270,000 ل.ل</p>
+          <p class="item-price lbp">300,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1337,7 +1569,7 @@
         <div class="item-details">
           <h5>فيتا حارة</h5>
           <p class="item-description">منقوشة جبنة فيتا الحارة لمحبي النكهات القوية</p>
-          <p class="item-price lbp">200,000 ل.ل</p>
+          <p class="item-price lbp">230,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1353,7 +1585,39 @@
         <div class="item-details">
           <h5>محمرة وجبنة</h5>
           <p class="item-description">محمرة بلدية مع جبنة </p>
-          <p class="item-price lbp">170,000 ل.ل</p>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="cheese-zaatar.png" alt="Labneh and Onion">
+        <div class="item-details">
+          <h5>لبنة وبصل</h5>
+          <p class="item-description">مناقيش لبنة وبصل</p>
+          <p class="item-price lbp">130,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="cheese-zaatar.png" alt="Akawi and Kashkawan">
+        <div class="item-details">
+          <h5>عكاوي وقشقوان</h5>
+          <p class="item-description">مناقيش عكاوي وقشقوان</p>
+          <p class="item-price lbp">250,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="cheese-zaatar.png" alt="Kafta">
+        <div class="item-details">
+          <h5>كفتة</h5>
+          <p class="item-description">مناقيش كفتة</p>
+          <p class="item-price lbp">200,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="cheese-zaatar.png" alt="Kafta and Cheese">
+        <div class="item-details">
+          <h5>كفتة وجبنة</h5>
+          <p class="item-description">مناقيش كفتة وجبنة</p>
+          <p class="item-price lbp">240,000 ل.ل</p>
         </div>
       </div>
 
@@ -1361,117 +1625,304 @@
       <div class="item-card">
         <img src="sujuk-pizza.png" alt="Sausage Pizza">
         <div class="item-details">
-          <h5>بيتزا سجق</h5>
+          <h5>بيتزا سجق صغير</h5>
           <p class="item-description">بيتزا شرقيّة مع سجق بلدي وجبنة </p>
-          <p class="item-price lbp">300,000 ل.ل</p>
+          <p class="item-price lbp">350,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="sujuk-pizza.png" alt="Sausage Pizza">
+        <div class="item-details">
+          <h5>بيتزا سجق وسط</h5>
+          <p class="item-description">بيتزا شرقيّة مع سجق بلدي وجبنة </p>
+          <p class="item-price lbp">650,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="sujuk-pizza.png" alt="Sausage Pizza">
+        <div class="item-details">
+          <h5>بيتزا سجق كبير</h5>
+          <p class="item-description">بيتزا شرقيّة مع سجق بلدي وجبنة </p>
+          <p class="item-price lbp">950,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
         <img src="mortadella-pizza.png" alt="Mortadella Pizza">
         <div class="item-details">
-          <h5>بيتزا مرتديلا</h5>
+          <h5>بيتزا مرتديلا صغير</h5>
           <p class="item-description">بيتزا مرتديلا مع جبنة وصوص خاص</p>
+          <p class="item-price lbp">350,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="mortadella-pizza.png" alt="Mortadella Pizza">
+        <div class="item-details">
+          <h5>بيتزا مرتديلا وسط</h5>
+          <p class="item-description">بيتزا مرتديلا مع جبنة وصوص خاص</p>
+          <p class="item-price lbp">650,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="mortadella-pizza.png" alt="Mortadella Pizza">
+        <div class="item-details">
+          <h5>بيتزا مرتديلا كبير</h5>
+          <p class="item-description">بيتزا مرتديلا مع جبنة وصوص خاص</p>
+          <p class="item-price lbp">950,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="vegetable-pizza.png" alt="Vegetable Pizza">
+        <div class="item-details">
+          <h5>بيتزا خضرا صغير</h5>
+          <p class="item-description">بيتزا بالخضار الطازجة وجبنة </p>
           <p class="item-price lbp">300,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
         <img src="vegetable-pizza.png" alt="Vegetable Pizza">
         <div class="item-details">
-          <h5>بيتزا خضرا</h5>
+          <h5>بيتزا خضرا وسط</h5>
           <p class="item-description">بيتزا بالخضار الطازجة وجبنة </p>
-          <p class="item-price lbp">300,000 ل.ل</p>
+          <p class="item-price lbp">600,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="vegetable-pizza.png" alt="Vegetable Pizza">
+        <div class="item-details">
+          <h5>بيتزا خضرا كبير</h5>
+          <p class="item-description">بيتزا بالخضار الطازجة وجبنة </p>
+          <p class="item-price lbp">900,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
         <img src="turkey-pizza.png" alt="Turkey Pizza">
         <div class="item-details">
-          <h5>بيتزا حبش</h5>
+          <h5>بيتزا حبش صغير</h5>
           <p class="item-description">بيتزا حبش مدخن مع جبنة وصوص خاص</p>
-          <p class="item-price lbp">300,000 ل.ل</p>
+          <p class="item-price lbp">350,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
-        <img src="extra-pizza.png" alt="Extra Pizza">
+        <img src="turkey-pizza.png" alt="Turkey Pizza">
         <div class="item-details">
-          <h5>بيتزا إكسترا</h5>
-          <p class="item-description">بيتزا مع إضافات متنوعة وجبنة إكسترا</p>
-          <p class="item-price lbp">400,000 ل.ل</p>
-        </div>
-      </div>
-      <div class="item-card">
-        <img src="extra-pizza.png" alt="Medium Pizza">
-        <div class="item-details">
-          <h5>بيتزا وسط</h5>
-          <p class="item-description">بيتزا حجم وسط مع صوص وجبنة</p>
-          <p class="item-price lbp">500,000 ل.ل</p>
-        </div>
-      </div>
-      <div class="item-card">
-        <img src="extra-pizza.png" alt="Large Pizza">
-        <div class="item-details">
-          <h5>بيتزا كبير</h5>
-          <p class="item-description">بيتزا حجم كبير مع صوص وجبنة</p>
-          <p class="item-price lbp">900,000 ل.ل</p>
-        </div>
-      </div>
-
-      <h4 class="subcategory-subtitle">بيتزا الغدير</h4>
-      <div class="item-card">
-        <img src="ghadirpizza.png" alt="Small Pizza">
-        <div class="item-details">
-          <h5>بيتزا حجم صغير</h5>
-          <p class="item-description">بيتزا الغدير حجم صغير مع صوص وجبنة</p>
+          <h5>بيتزا حبش وسط</h5>
+          <p class="item-description">بيتزا حبش مدخن مع جبنة وصوص خاص</p>
           <p class="item-price lbp">600,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
-        <img src="ghadirpizza.png" alt="Medium Pizza">
+        <img src="turkey-pizza.png" alt="Turkey Pizza">
         <div class="item-details">
-          <h5>بيتزا حجم وسط</h5>
-          <p class="item-description">بيتزا الغدير حجم وسط مع صوص وجبنة</p>
-          <p class="item-price lbp">900,000 ل.ل</p>
+          <h5>بيتزا حبش كبير</h5>
+          <p class="item-description">بيتزا حبش مدخن مع جبنة وصوص خاص</p>
+          <p class="item-price lbp">950,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
-        <img src="ghadirpizza.png" alt="Large Pizza">
+        <img src="normal-peperonipizza.png" alt="normalpeperoni Pizza">
         <div class="item-details">
-          <h5>بيتزا حجم كبير</h5>
-          <p class="item-description">بيتزا الغدير حجم كبير مع صوص وجبنة</p>
-          <p class="item-price lbp">1,200,000 ل.ل</p>
+          <h5>بيتزا بيبروني  صغير</h5>
+          <p class="item-description">بيتزا مع إضافات متنوعة وجبنة إكسترا</p>
+          <p class="item-price lbp">420,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="normal-peperonipizza.png" alt="normalpeperoni Pizza">
+        <div class="item-details">
+          <h5>بيتزا بيبروني وسط</h5>
+          <p class="item-description">بيتزا حجم وسط مع صوص وجبنة</p>
+          <p class="item-price lbp">750,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="normal-peperonipizza.png" alt="normalpeperoni Pizza">
+        <div class="item-details">
+          <h5>بيتزا بيبروني كبير</h5>
+          <p class="item-description">بيتزا حجم كبير مع صوص وجبنة</p>
+          <p class="item-price lbp">1,000,000 ل.ل</p>
         </div>
       </div>
 
+
+
       <h4 class="subcategory-subtitle">مشروحة</h4>
       <div class="item-card">
-        <img src="kashkawan-cheese.png" alt="Mashrouha Cheese">
+        <img src="mashrouha-zaatar.png" alt="Za'atar Flatbread">
         <div class="item-details">
-          <h5> جبنة</h5>
-          <p class="item-description">مشروحة جبنة  في عجينة طرية</p>
-          <p class="item-price lbp">240,000 ل.ل</p>
-        </div>
-      </div>
-      <div class="item-card">
-        <img src="zaatar.png" alt="Mashrouha Zaatar">
-        <div class="item-details">
-          <h5> زعتر</h5>
-          <p class="item-description">مشروحة زعتر بلدي مع زيت الزيتون</p>
+          <h5>زعتر</h5>
+          <p class="item-description">مشروحة زعتر طازجة</p>
           <p class="item-price lbp">90,000 ل.ل</p>
         </div>
       </div>
+      
       <div class="item-card">
-        <img src="akawi-cheese.png" alt="Mashrouha ekawikashkawan">
+        <img src="mashrouha-cheese.png" alt="Cheese Flatbread">
         <div class="item-details">
-          <h5> عكاوي وقشقوان</h5>
-          <p class="item-description">مشروحة جبنة عكاوي وقشقوان </p>
+          <h5>جبنة</h5>
+          <p class="item-description">مشروحة جبنة طازجة</p>
+          <p class="item-price lbp">250,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-zaatar-cheese.png" alt="Za'atar and Cheese Flatbread">
+        <div class="item-details">
+          <h5>زعتر و جبنة</h5>
+          <p class="item-description">مشروحة زعتر وجبنة طازجة</p>
+          <p class="item-price lbp">160,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-kashkaval.png" alt="Kashkaval Flatbread">
+        <div class="item-details">
+          <h5>قشقوان</h5>
+          <p class="item-description">مشروحة قشقوان طازجة</p>
           <p class="item-price lbp">300,000 ل.ل</p>
         </div>
       </div>
+      
       <div class="item-card">
-        <img src="cheese-zaatar.png" alt="Mashrouha Zaatarjebneh">
+        <img src="mashrouha-kashkaval-akkawi.png" alt="Kashkaval and Akkawi Flatbread">
         <div class="item-details">
-          <h5> زعتر وجبنة</h5>
-          <p class="item-description">مشروحة زعتر مع جبنة </p>
-          <p class="item-price lbp">150,000 ل.ل</p>
+          <h5>قشقوان وعكاوي</h5>
+          <p class="item-description">مشروحة قشقوان وعكاوي طازجة</p>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-kishk.png" alt="Kishk Flatbread">
+        <div class="item-details">
+          <h5>كشك</h5>
+          <p class="item-description">مشروحة كشك طازجة</p>
+          <p class="item-price lbp">180,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-kishk-cheese.png" alt="Kishk and Cheese Flatbread">
+        <div class="item-details">
+          <h5>كشك وجبنة</h5>
+          <p class="item-description">مشروحة كشك وجبنة طازجة</p>
+          <p class="item-price lbp">250,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-onion-tomato.png" alt="Onion and Tomato Flatbread">
+        <div class="item-details">
+          <h5>بصل وبندورة</h5>
+          <p class="item-description">مشروحة بصل وبندورة طازجة</p>
+          <p class="item-price lbp">180,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-onion-tomato-cheese.png" alt="Onion, Tomato and Cheese Flatbread">
+        <div class="item-details">
+          <h5>بصل وبندورة وجبنة</h5>
+          <p class="item-description">مشروحة بصل وبندورة وجبنة طازجة</p>
+          <p class="item-price lbp">250,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-zaatar-tomato-onion.png" alt="Za'atar, Tomato and Onion Flatbread">
+        <div class="item-details">
+          <h5>زعتر وبندورة وبصل</h5>
+          <p class="item-description">مشروحة زعتر وبندورة وبصل طازجة</p>
+          <p class="item-price lbp">200,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-labneh.png" alt="Labneh Flatbread">
+        <div class="item-details">
+          <h5>لبنة</h5>
+          <p class="item-description">مشروحة لبنة طازجة</p>
+          <p class="item-price lbp">180,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-zaatar-labneh.png" alt="Za'atar and Labneh Flatbread">
+        <div class="item-details">
+          <h5>زعتر ولبنة</h5>
+          <p class="item-description">مشروحة زعتر ولبنة طازجة</p>
+          <p class="item-price lbp">200,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-feta-hara.png" alt="Spicy Feta Flatbread">
+        <div class="item-details">
+          <h5>فيتا حرة</h5>
+          <p class="item-description">مشروحة فيتا حرة طازجة</p>
+          <p class="item-price lbp">280,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-sujuk.png" alt="Sujuk Flatbread">
+        <div class="item-details">
+          <h5>سجق</h5>
+          <p class="item-description">مشروحة سجق طازجة</p>
+          <p class="item-price lbp">260,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-sujuk-cheese.png" alt="Sujuk and Cheese Flatbread">
+        <div class="item-details">
+          <h5>سجق وجبنة</h5>
+          <p class="item-description">مشروحة سجق وجبنة طازجة</p>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-kofta.png" alt="Kofta Flatbread">
+        <div class="item-details">
+          <h5>كفتة</h5>
+          <p class="item-description">مشروحة كفتة طازجة</p>
+          <p class="item-price lbp">260,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-kofta-cheese.png" alt="Kofta and Cheese Flatbread">
+        <div class="item-details">
+          <h5>كفتة وجبنة</h5>
+          <p class="item-description">مشروحة كفتة وجبنة طازجة</p>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-mortadella-cheese.png" alt="Mortadella and Cheese Flatbread">
+        <div class="item-details">
+          <h5>مرتديلا وجبنة</h5>
+          <p class="item-description">مشروحة مرتديلا وجبنة طازجة</p>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-turkey-cheese.png" alt="Turkey and Cheese Flatbread">
+        <div class="item-details">
+          <h5>حبش وجبنة</h5>
+          <p class="item-description">مشروحة حبش وجبنة طازجة</p>
+          <p class="item-price lbp">330,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-pepperoni-cheese.png" alt="Pepperoni and Cheese Flatbread">
+        <div class="item-details">
+          <h5>بيبروني وجبنة</h5>
+          <p class="item-description">مشروحة بيبروني وجبنة طازجة</p>
+          <p class="item-price lbp">320,000 ل.ل</p>
         </div>
       </div>
 
@@ -1516,6 +1967,14 @@
           <p class="item-price lbp">400,000 ل.ل</p>
         </div>
       </div>
+      <div class="item-card">
+        <img src="rghif.png" alt="rghif lahme">
+        <div class="item-details">
+          <h5> لحمة</h5>
+          <p class="item-description">رغيف لحمة طازجة</p>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
 
       <h4 class="subcategory-subtitle">كعكة</h4>
       <div class="item-card">
@@ -1529,9 +1988,17 @@
       <div class="item-card">
         <img src="kaak.png" alt="Cheese Cake">
         <div class="item-details">
-          <h5>كعكة جبنة</h5>
+          <h5>كعكة عكاوي</h5>
           <p class="item-description">كعكة محشوة بالجبنة </p>
           <p class="item-price lbp">250,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Cheese Cake">
+        <div class="item-details">
+          <h5>كعكة قشقوان</h5>
+          <p class="item-description">كعكة محشوة بالجبنة </p>
+          <p class="item-price lbp">290,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1547,7 +2014,7 @@
         <div class="item-details">
           <h5>كعكة مرتديلا وجبنة</h5>
           <p class="item-description">كعكة محشوة بمرتديلا وجبنة</p>
-          <p class="item-price lbp">350,000 ل.ل</p>
+          <p class="item-price lbp">300,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1555,7 +2022,7 @@
         <div class="item-details">
           <h5>كعكة سجق وجبنة</h5>
           <p class="item-description">كعكة محشوة بسجق بلدي وجبنة</p>
-          <p class="item-price lbp">350,000 ل.ل</p>
+          <p class="item-price lbp">300,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1563,7 +2030,7 @@
         <div class="item-details">
           <h5>كعكة زعتر</h5>
           <p class="item-description">كعكة محشوة بالزعتر البلدي</p>
-          <p class="item-price lbp">130,000 ل.ل</p>
+          <p class="item-price lbp">100,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1571,7 +2038,7 @@
         <div class="item-details">
           <h5>كعكة جبنة وزعتر</h5>
           <p class="item-description">كعكة محشوة بالجبنة والزعتر</p>
-          <p class="item-price lbp">210,000 ل.ل</p>
+          <p class="item-price lbp">200,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1582,6 +2049,62 @@
           <p class="item-price lbp">255,000 ل.ل</p>
         </div>
       </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Labneh Cake">
+        <div class="item-details">
+          <h5>كعكة لبنة</h5>
+          <p class="item-description">كعكة محشوة باللبنة الطازجة</p>
+          <p class="item-price lbp">250,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Bacon Cake">
+        <div class="item-details">
+          <h5>كعكة بيكون</h5>
+          <p class="item-description">كعكة بيكون</p>
+          <p class="item-price lbp">250,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Sausage Cake">
+        <div class="item-details">
+          <h5>كعكة سجق</h5>
+          <p class="item-description">كعكة سجق</p>
+          <p class="item-price lbp">250,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Kafta Cake">
+        <div class="item-details">
+          <h5>كعكة كفتة</h5>
+          <p class="item-description">كعكة كفتة</p>
+          <p class="item-price lbp">250,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Sausage and Cheese Cake">
+        <div class="item-details">
+          <h5>كعكة سجق وجبنة</h5>
+          <p class="item-description">كعكة سجق وجبنة</p>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Pepperoni and Cheese Cake">
+        <div class="item-details">
+          <h5>كعكة ببروني وجبنة</h5>
+          <p class="item-description">كعكة ببروني وجبنة</p>
+          <p class="item-price lbp">350,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Turkey and Cheese Cake">
+        <div class="item-details">
+          <h5>كعكة حبش وجبنة</h5>
+          <p class="item-description">كعكة حبش وجبنة</p>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
 
       <h4 class="subcategory-subtitle">جريش</h4>
       <div class="item-card">
@@ -1589,7 +2112,7 @@
         <div class="item-details">
           <h5>جبنة عكاوي</h5>
           <p class="item-description">جريش محشو بجبنة عكاوي لبنانية</p>
-          <p class="item-price lbp">170,000 ل.ل</p>
+          <p class="item-price lbp">190,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1597,7 +2120,7 @@
         <div class="item-details">
           <h5>جبنة قشقوان</h5>
           <p class="item-description">جريش محشو بجبنة قشقوان </p>
-          <p class="item-price lbp">250,000 ل.ل</p>
+          <p class="item-price lbp">260,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1605,7 +2128,7 @@
         <div class="item-details">
           <h5>جبنة وزعتر</h5>
           <p class="item-description">جريش محشو بالجبنة والزعتر البلدي</p>
-          <p class="item-price lbp">130,000 ل.ل</p>
+          <p class="item-price lbp">140,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1613,7 +2136,7 @@
         <div class="item-details">
           <h5>زعتر</h5>
           <p class="item-description">جريش محشو بالزعتر البلدي</p>
-          <p class="item-price lbp">70,000 ل.ل</p>
+          <p class="item-price lbp">80,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1637,7 +2160,7 @@
         <div class="item-details">
           <h5>بصل وبندورة</h5>
           <p class="item-description">جريش محشو بالبصل والبندورة الطازجة</p>
-          <p class="item-price lbp">130,000 ل.ل</p>
+          <p class="item-price lbp">140,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1645,7 +2168,7 @@
         <div class="item-details">
           <h5>بصل وبندورة مع جبنة</h5>
           <p class="item-description">جريش محشو بالبصل والبندورة مع جبنة</p>
-          <p class="item-price lbp">200,000 ل.ل</p>
+          <p class="item-price lbp">210,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1653,7 +2176,7 @@
         <div class="item-details">
           <h5>كشك</h5>
           <p class="item-description">جريش محشو بالكشك البلدي</p>
-          <p class="item-price lbp">130,000 ل.ل</p>
+          <p class="item-price lbp">140,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1661,7 +2184,7 @@
         <div class="item-details">
           <h5>كشك وجبنة</h5>
           <p class="item-description">جريش محشو بالكشك والجبنة </p>
-          <p class="item-price lbp">200,000 ل.ل</p>
+          <p class="item-price lbp">210,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1669,7 +2192,7 @@
         <div class="item-details">
           <h5>لحمة بعجين</h5>
           <p class="item-description">جريش محشو بلحمة بعجين على الطريقة البعلبكية</p>
-          <p class="item-price lbp">260,000 ل.ل</p>
+          <p class="item-price lbp">210,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1677,7 +2200,7 @@
         <div class="item-details">
           <h5>لحمة وجبنة</h5>
           <p class="item-description">جريش محشو باللحمة والجبنة </p>
-          <p class="item-price lbp">300,000 ل.ل</p>
+          <p class="item-price lbp">250,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1685,7 +2208,7 @@
         <div class="item-details">
           <h5>سجق وجبنة</h5>
           <p class="item-description">جريش محشو بسجق بلدي وجبنة</p>
-          <p class="item-price lbp">250,000 ل.ل</p>
+          <p class="item-price lbp">260,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1693,7 +2216,7 @@
         <div class="item-details">
           <h5>مرتديلا وجبنة</h5>
           <p class="item-description">جريش محشو بمرتديلا وجبنة</p>
-          <p class="item-price lbp">250,000 ل.ل</p>
+          <p class="item-price lbp">260,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1701,7 +2224,7 @@
         <div class="item-details">
           <h5>حبش وجبنة</h5>
           <p class="item-description">جريش محشو بحبش مدخن وجبنة</p>
-          <p class="item-price lbp">250,000 ل.ل</p>
+          <p class="item-price lbp">290,000 ل.ل</p>
         </div>
       </div>
 
@@ -1742,7 +2265,7 @@
         <div class="item-details">
           <h5>فيتا حارة</h5>
           <p class="item-description">جريش محشو بجبنة فيتا الحارة</p>
-          <p class="item-price lbp">200,000 ل.ل</p>
+          <p class="item-price lbp">240,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1759,6 +2282,46 @@
           <h5>محمرة وجبنة</h5>
           <p class="item-description">جريش محشو بمحمرة بلدية وجبنة </p>
           <p class="item-price lbp">170,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="jrish.png" alt="Muhammara and Cheese">
+        <div class="item-details">
+          <h5>محمرة وجبنة</h5>
+          <p class="item-description">جريش محشو بمحمرة بلدية وجبنة </p>
+          <p class="item-price lbp">170,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="jrish.png" alt="Labneh and Onion">
+        <div class="item-details">
+          <h5>لبنة وبصل</h5>
+          <p class="item-description">جريش محشو باللبنة والبصل</p>
+          <p class="item-price lbp">140,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="jrish.png" alt="Akawi and Kashkawan">
+        <div class="item-details">
+          <h5>عكاوي وقشقوان</h5>
+          <p class="item-description">جريش محشو بجبنة عكاوي وقشقوان</p>
+          <p class="item-price lbp">260,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="jrish.png" alt="Kafta">
+        <div class="item-details">
+          <h5>كفتة</h5>
+          <p class="item-description">جريش محشو بالكفتة</p>
+          <p class="item-price lbp">210,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="jrish.png" alt="Kafta and Cheese">
+        <div class="item-details">
+          <h5>كفتة وجبنة</h5>
+          <p class="item-description">جريش محشو بالكفتة والجبنة</p>
+          <p class="item-price lbp">250,000 ل.ل</p>
         </div>
       </div>
 
@@ -1797,6 +2360,114 @@
           <p class="item-price lbp">300,000 ل.ل</p>
         </div>
       </div>
+
+      <h3 class="subcategory-title">الصوص والإضافات</h3>
+      <div class="item-card">
+        <img src="sauce.png" alt="Sauce">
+        <div class="item-details">
+          <h5>صوص</h5>
+          <p class="item-description">صوص طازج</p>
+          <p class="item-price lbp">50,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="lsauce.png" alt="Large Sauce">
+        <div class="item-details">
+          <h5>صوص كبير</h5>
+          <p class="item-description">صوص كبير طازج</p>
+          <p class="item-price lbp">100,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="garlic.png" alt="Garlic Sauce">
+        <div class="item-details">
+          <h5>صوص ثوم</h5>
+          <p class="item-description">صوص ثوم طازج</p>
+          <p class="item-price lbp">50,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="lgarlic.png" alt="Large Garlic Sauce">
+        <div class="item-details">
+          <h5>صوص ثوم كبير</h5>
+          <p class="item-description">صوص ثوم كبير طازج</p>
+          <p class="item-price lbp">100,000 ل.ل</p>
+        </div>
+      </div>
+
+      <h3 class="subcategory-title">مرطبات</h3>
+      <div class="item-card">
+        <img src="pepsi.png" alt="Pepsi">
+        <div class="item-details">
+          <h5>بيبسي</h5>
+          <p class="item-description">بيبسي بارد ومنعش</p>
+          <p class="item-price lbp">80,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="7up.png" alt="7up">
+        <div class="item-details">
+          <h5>سفن اب</h5>
+          <p class="item-description">سفن اب بارد ومنعش</p>
+          <p class="item-price lbp">80,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="miranda.png" alt="Mirinda">
+        <div class="item-details">
+          <h5>ميرندا</h5>
+          <p class="item-description">ميرندا برتقالية منعشة</p>
+          <p class="item-price lbp">80,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="laban.png" alt="Laban">
+        <div class="item-details">
+          <h5>لبن</h5>
+          <p class="item-description">لبن طازج ومنعش</p>
+          <p class="item-price lbp">80,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="juiceglass.png" alt="Juice Glass">
+        <div class="item-details">
+          <h5>عصير زجاج</h5>
+          <p class="item-description">عصير طازج في كوب</p>
+          <p class="item-price lbp">50,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="topjuice.png" alt="Top Juice">
+        <div class="item-details">
+          <h5>توب جوس</h5>
+          <p class="item-description">توب جوس منعش</p>
+          <p class="item-price lbp">25,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="water.png" alt="Water">
+        <div class="item-details">
+          <h5>مياه صغير</h5>
+          <p class="item-description">مياه معدنية طبيعية</p>
+          <p class="item-price lbp">35,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="tea.png" alt="Tea">
+        <div class="item-details">
+          <h5>شاي</h5>
+          <p class="item-description">شاي ساخن أو بارد</p>
+          <p class="item-price lbp">50,000 ل.ل</p>
+        </div>
+      </div>
+    </div>
     </div>
 
     <!-- Breads Category -->
@@ -1807,7 +2478,7 @@
         <div class="item-details">
           <h5>نص دزدينة صفيحة</h5>
           <p class="item-description">٦ قطع شهية من الصفيحة</p>
-          <p class="item-price lbp">235,000 ل.ل</p>
+          <p class="item-price lbp">210,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1815,7 +2486,7 @@
         <div class="item-details">
           <h5>دزدينة صفيحة</h5>
           <p class="item-description">١٢ قطعة شهية من الصفيحة</p>
-          <p class="item-price lbp">470,000 ل.ل</p>
+          <p class="item-price lbp">420,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1823,7 +2494,7 @@
         <div class="item-details">
           <h5>نص كيلو صفيحة</h5>
           <p class="item-description">حوالي ١٨ قطعة شهية من الصفيحة</p>
-          <p class="item-price lbp">1,410,000 ل.ل</p>
+          <p class="item-price lbp">1,125,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -1831,7 +2502,7 @@
         <div class="item-details">
           <h5>كيلو صفيحة</h5>
           <p class="item-description">حوالي ٣٦ قطعة شهية من الصفيحة</p>
-          <p class="item-price lbp">2,820,000 ل.ل</p>
+          <p class="item-price lbp">2,250,000 ل.ل</p>
         </div>
       </div>
 
@@ -1868,6 +2539,8 @@
           <p class="item-price lbp">2,250,000 ل.ل</p>
         </div>
       </div>
+
+
     </div>
 
     <!-- Pizza Category -->
@@ -1941,179 +2614,244 @@
 
     <!--  mashewe -->
     <div id="grill" class="menu-section">
-      <h3 class="subcategory-title">المشاوي</h3>
+      <h3 class="subcategory-title">مشاوي</h3>
       <div class="item-card">
-        <img src="grill-mix.png" alt="Grill Mix">
+        <img src="grilled-meat.png" alt="Grilled Meat">
         <div class="item-details">
-          <h5>كيلو مشاوي مع سيرفيس</h5>
-          <p class="item-description">مشاوي مشكّلة مع سيرفيس (حوالي ١٤ سيخ)</p>
+          <h5>كيلو لحمة مشوية</h5>
+          <p class="item-description">كيلو لحمة مشوية طازجة</p>
           <p class="item-price lbp">2,000,000 ل.ل</p>
         </div>
       </div>
 
-      <h4 class="subcategory-subtitle">السندويشات</h4>
       <div class="item-card">
-        <img src="grilled-chicken.png" alt="Chicken Sandwich">
+        <img src="grilled-kafta.png" alt="Grilled Kafta">
         <div class="item-details">
-          <h5>دجاج عالفحم</h5>
-          <p class="item-description">ساندويش دجاج عالفحم متبل ومشوي مع صلصتنا الخاصة</p>
-          <p class="item-price lbp">300,000 ل.ل</p>
+          <h5>كيلو كفتة مشوي</h5>
+          <p class="item-description">كيلو كفتة مشوية طازجة</p>
+          <p class="item-price lbp">2,000,000 ل.ل</p>
         </div>
       </div>
+
       <div class="item-card">
-        <img src="mshabbak.png" alt="Mshabbak Sandwich">
+        <img src="grilled-liver.png" alt="Grilled Liver">
         <div class="item-details">
-          <h5>مسّحب</h5>
-          <p class="item-description">ساندويش مسّحب طري مع صلصة شهية</p>
+          <h5>كيلو سودا مشوي</h5>
+          <p class="item-description">كيلو سودا مشوية طازجة</p>
+          <p class="item-price lbp">2,000,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="grilled-tawook.png" alt="Grilled Tawook">
+        <div class="item-details">
+          <h5>كيلو طاووق مشوي</h5>
+          <p class="item-description">كيلو طاووق مشوي طازج</p>
+          <p class="item-price lbp">1,800,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="skewer-shish.png" alt="Skewer Shish">
+        <div class="item-details">
+          <h5>سيخ شقف / كفتة (بدون سرفيس)</h5>
+          <p class="item-description">سيخ شقف أو كفتة بدون سرفيس</p>
+          <p class="item-price lbp">200,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="skewer-shish-service.png" alt="Skewer Shish with Service">
+        <div class="item-details">
+          <h5>سيخ شقف كفتة (مع سرفيس)</h5>
+          <p class="item-description">سيخ شقف كفتة مع سرفيس</p>
           <p class="item-price lbp">350,000 ل.ل</p>
         </div>
       </div>
+
+      <div class="item-card">
+        <img src="skewer-tawook.png" alt="Skewer Tawook">
+        <div class="item-details">
+          <h5>سيخ طاووق (بدون سرفيس)</h5>
+          <p class="item-description">سيخ طاووق بدون سرفيس</p>
+          <p class="item-price lbp">180,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="skewer-tawook-service.png" alt="Skewer Tawook with Service">
+        <div class="item-details">
+          <h5>سيخ طاووق (مع سرفيس)</h5>
+          <p class="item-description">سيخ طاووق مع سرفيس</p>
+          <p class="item-price lbp">350,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="meal-shish.png" alt="Meal Shish">
+        <div class="item-details">
+          <h5>وجبة (4) سياخ شقف كفتة) + سرفيس</h5>
+          <p class="item-description">وجبة 4 سياخ شقف كفتة مع سرفيس</p>
+          <p class="item-price lbp">1,000,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="meal-tawook.png" alt="Meal Tawook">
+        <div class="item-details">
+          <h5>وجبة (4) سياخ طاووق + سرفيس</h5>
+          <p class="item-description">وجبة 4 سياخ طاووق مع سرفيس</p>
+          <p class="item-price lbp">900,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="meal-mixed.png" alt="Mixed Meal">
+        <div class="item-details">
+          <h5>وجبة (2) سيخ شقف / كفتة + 2 سيخ طاووق) + سرفيس</h5>
+          <p class="item-description">وجبة 2 سيخ شقف/كفتة + 2 سيخ طاووق مع سرفيس</p>
+          <p class="item-price lbp">950,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="half-kilo-shish.png" alt="Half Kilo Shish">
+        <div class="item-details">
+          <h5>نص كيلو شقف / كفتة + سرفيس</h5>
+          <p class="item-description">نص كيلو شقف أو كفتة مع سرفيس</p>
+          <p class="item-price lbp">1,200,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="half-kilo-tawook.png" alt="Half Kilo Tawook">
+        <div class="item-details">
+          <h5>نص كيلو طاووق + سرفيس</h5>
+          <p class="item-description">نص كيلو طاووق مع سرفيس</p>
+          <p class="item-price lbp">1,080,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="grilled-chicken.png" alt="Grilled Chicken">
+        <div class="item-details">
+          <h5>فروج عل فحم</h5>
+          <p class="item-description">فروج مشوي على الفحم</p>
+          <p class="item-price lbp">1,450,000 ل.ل</p>
+        </div>
+      </div>
+
+      <h4 class="subcategory-subtitle">سندويشات</h4>
+      <div class="item-card">
+        <img src="grilled-chicken.png" alt="Chicken Sandwich">
+        <div class="item-details">
+          <h5>دجاج عل فحم</h5>
+          <p class="item-description">ساندويش دجاج مشوي على الفحم</p>
+          <p class="item-price lbp">350,000 ل.ل</p>
+        </div>
+      </div>
+
+      <div class="item-card">
+        <img src="mshabbak.png" alt="Mshabbak Sandwich">
+        <div class="item-details">
+          <h5>مسحب</h5>
+          <p class="item-description">ساندويش مسحب طري</p>
+          <p class="item-price lbp">400,000 ل.ل</p>
+        </div>
+      </div>
+
       <div class="item-card">
         <img src="tawook.png" alt="Tawook Sandwich">
         <div class="item-details">
-          <h5>طاووق</h5>
-          <p class="item-description">ساندويش طاووق متبل مع صلصة الغدير الخاصة</p>
-          <p class="item-price lbp">300,000 ل.ل</p>
+          <h5>طاوق</h5>
+          <p class="item-description">ساندويش طاوق متبل</p>
+          <p class="item-price lbp">350,000 ل.ل</p>
         </div>
       </div>
+
       <div class="item-card">
         <img src="shakf.png" alt="Shakf Sandwich">
         <div class="item-details">
           <h5>شقف</h5>
-          <p class="item-description">ساندويش شقف لحم مشوي مع صلصة مميزة</p>
+          <p class="item-description">ساندويش شقف لحم مشوي</p>
           <p class="item-price lbp">350,000 ل.ل</p>
         </div>
       </div>
+
       <div class="item-card">
         <img src="kafta.png" alt="Kafta Sandwich">
         <div class="item-details">
           <h5>كفتة</h5>
-          <p class="item-description">ساندويش كفتة مشوية مع صلصة لذيذة</p>
+          <p class="item-description">ساندويش كفتة مشوية</p>
           <p class="item-price lbp">350,000 ل.ل</p>
         </div>
       </div>
+
       <div class="item-card">
         <img src="sujuk.png" alt="Sujuk Sandwich">
         <div class="item-details">
           <h5>سجق</h5>
-          <p class="item-description">ساندويش سجق حار مع صلصة خاصة</p>
+          <p class="item-description">ساندويش سجق حار</p>
           <p class="item-price lbp">350,000 ل.ل</p>
         </div>
       </div>
+
       <div class="item-card">
         <img src="makanek.png" alt="Makanek Sandwich">
         <div class="item-details">
           <h5>مقانق</h5>
-          <p class="item-description">ساندويش مقانق لبنانية مع صلصة فريدة</p>
+          <p class="item-description">ساندويش مقانق لبنانية</p>
           <p class="item-price lbp">350,000 ل.ل</p>
         </div>
       </div>
+
       <div class="item-card">
         <img src="sawda.png" alt="Sawda Sandwich">
         <div class="item-details">
-          <h5>سودا</h5>
-          <p class="item-description">ساندويش سودا مشوية مع صلصة مميزة</p>
+          <h5>سودة</h5>
+          <p class="item-description">ساندويش سودة مشوية</p>
           <p class="item-price lbp">350,000 ل.ل</p>
         </div>
       </div>
+
       <div class="item-card">
-        <img src="sawdaniyeh.png" alt="sawdaniyeh Sandwich">
+        <img src="malseh.png" alt="Malseh Sandwich">
         <div class="item-details">
-          <h5>سودة نية</h5>
-          <p class="item-description">ساندويش سودا نية مع صلصة خاصة</p>
+          <h5>ملسة</h5>
+          <p class="item-description">ساندويش ملسة لحم</p>
           <p class="item-price lbp">350,000 ل.ل</p>
         </div>
       </div>
-      <div class="item-card">
-        <img src="malseh.png" alt="malseh Sandwich">
-        <div class="item-details">
-          <h5>ملسِة</h5>
-          <p class="item-description">ساندويش ملسِة لحم مع صلصة شهية</p>
-          <p class="item-price lbp">350,000 ل.ل</p>
-        </div>
-      </div>
-      <div class="item-card">
-        <img src="shakf.png" alt="sekhen Sandwich">
-        <div class="item-details">
-          <h5>على السيخين</h5>
-          <p class="item-description">ساندويش لحم مشوي على السيخين مع صلصة الغدير</p>
-          <p class="item-price lbp">350,000 ل.ل</p>
-        </div>
-      </div>
-      <div class="item-card">
-        <img src="burger.png" alt="Burger Sandwich">
-        <div class="item-details">
-          <h5>برجر على الفحم</h5>
-          <p class="item-description">برجر لحم مشوي على الفحم مع صلصة البرجر الخاصة</p>
-          <p class="item-price lbp">400,000 ل.ل</p>
-        </div>
-      </div>
+
       <div class="item-card">
         <img src="potato.png" alt="Potato Sandwich">
         <div class="item-details">
           <h5>بطاطا</h5>
-          <p class="item-description">ساندويش بطاطا مقرمشة مع صلصة البطاطا</p>
+          <p class="item-description">ساندويش بطاطا مقرمشة</p>
           <p class="item-price lbp">150,000 ل.ل</p>
         </div>
       </div>
 
-      <h4 class="subcategory-subtitle">الإضافات</h4>
       <div class="item-card">
-        <img src="fries.png" alt="French Fries">
+        <img src="burger.png" alt="Burger Sandwich">
         <div class="item-details">
-          <h5>علبة بطاطا</h5>
-          <p class="item-price lbp">220,000 ل.ل</p>
-        </div>
-      </div>
-      <div class="item-card">
-        <img src="vegetables.png" alt="Vegetables Plate">
-        <div class="item-details">
-          <h5>صحن خضرا</h5>
-          <p class="item-price lbp">120,000 ل.ل</p>
-        </div>
-      </div>
-      <div class="item-card">
-        <img src="garlic.png" alt="Small Garlic Sauce">
-        <div class="item-details">
-          <h5>علبة ثوم صغير</h5>
-          <p class="item-price lbp">50,000 ل.ل</p>
-        </div>
-      </div>
-      <div class="item-card">
-        <img src="sauce.png" alt="Small Sauce">
-        <div class="item-details">
-          <h5>علبة صوص صغير</h5>
-          <p class="item-price lbp">50,000 ل.ل</p>
-        </div>
-      </div>
-      <div class="item-card">
-        <img src="lgarlic.png" alt="Large Garlic Sauce">
-        <div class="item-details">
-          <h5>علبة ثوم كبير</h5>
-          <p class="item-price lbp">100,000 ل.ل</p>
-        </div>
-      </div>
-      <div class="item-card">
-        <img src="lsauce.png" alt="Large Sauce">
-        <div class="item-details">
-          <h5>علبة صوص كبير</h5>
-          <p class="item-price lbp">100,000 ل.ل</p>
+          <h5>برغر على الفحم</h5>
+          <p class="item-description">برغر لحم مشوي على الفحم</p>
+          <p class="item-price lbp">400,000 ل.ل</p>
         </div>
       </div>
     </div>
 
-
-
     <!-- Pastries Category -->
     <div id="pastries" class="menu-section">
-      <h3 class="subcategory-title">معجنات</h3>
+      <h3 class="subcategory-title">المعجّنات</h3>
       <h4 class="subcategory-subtitle">مناقيش</h4>
       <div class="item-card">
         <img src="akawi-cheese.png" alt="Akawi Cheese">
         <div class="item-details">
           <h5>جبنة عكاوي</h5>
           <p class="item-description">منقوشة جبنة عكاوي لبنانية أصلية بطعم غني ومميز</p>
-          <p class="item-price lbp">170,000 ل.ل</p>
+          <p class="item-price lbp">180,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -2145,7 +2883,7 @@
         <div class="item-details">
           <h5>سبانخ</h5>
           <p class="item-description">سبانخ طازجة متبلة ومحشوة بعجينة طرية</p>
-          <p class="item-price lbp">100,000 ل.ل</p>
+          <p class="item-price lbp">80,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -2153,7 +2891,7 @@
         <div class="item-details">
           <h5>سبانخ وجبنة</h5>
           <p class="item-description">سبانخ طازجة مع جبنة  في عجينة شهية</p>
-          <p class="item-price lbp">200,000 ل.ل</p>
+          <p class="item-price lbp">180,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -2193,7 +2931,7 @@
         <div class="item-details">
           <h5>لحمة بعجين</h5>
           <p class="item-description">لحمة بعجين على الطريقة البعلبكية التقليدية</p>
-          <p class="item-price lbp">260,000 ل.ل</p>
+          <p class="item-price lbp">200,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -2201,7 +2939,7 @@
         <div class="item-details">
           <h5>لحمة وجبنة</h5>
           <p class="item-description">لحمة بعجين مع جبنة لمذاق غني</p>
-          <p class="item-price lbp">300,000 ل.ل</p>
+          <p class="item-price lbp">240,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -2225,7 +2963,7 @@
         <div class="item-details">
           <h5>حبش وجبنة</h5>
           <p class="item-description">حبش مدخن مع جبنة لمذاق شهي</p>
-          <p class="item-price lbp">250,000 ل.ل</p>
+          <p class="item-price lbp">280,000 ل.ل</p>
         </div>
       </div>
 
@@ -2250,7 +2988,7 @@
         <div class="item-details">
           <h5>فاهيتا وجبنة</h5>
           <p class="item-description">منقوشة فاهيتا الدجاج مع جبنة </p>
-          <p class="item-price lbp">270,000 ل.ل</p>
+          <p class="item-price lbp">300,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -2258,7 +2996,7 @@
         <div class="item-details">
           <h5>طاووق وجبنة</h5>
           <p class="item-description">منقوشة طاووق متبل مع جبنة شهية</p>
-          <p class="item-price lbp">270,000 ل.ل</p>
+          <p class="item-price lbp">300,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -2266,7 +3004,7 @@
         <div class="item-details">
           <h5>فيتا حارة</h5>
           <p class="item-description">منقوشة جبنة فيتا الحارة لمحبي النكهات القوية</p>
-          <p class="item-price lbp">200,000 ل.ل</p>
+          <p class="item-price lbp">230,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -2282,7 +3020,39 @@
         <div class="item-details">
           <h5>محمرة وجبنة</h5>
           <p class="item-description">محمرة بلدية مع جبنة </p>
-          <p class="item-price lbp">170,000 ل.ل</p>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="cheese-zaatar.png" alt="Labneh and Onion">
+        <div class="item-details">
+          <h5>لبنة وبصل</h5>
+          <p class="item-description">مناقيش لبنة وبصل</p>
+          <p class="item-price lbp">130,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="cheese-zaatar.png" alt="Akawi and Kashkawan">
+        <div class="item-details">
+          <h5>عكاوي وقشقوان</h5>
+          <p class="item-description">مناقيش عكاوي وقشقوان</p>
+          <p class="item-price lbp">250,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="cheese-zaatar.png" alt="Kafta">
+        <div class="item-details">
+          <h5>كفتة</h5>
+          <p class="item-description">مناقيش كفتة</p>
+          <p class="item-price lbp">200,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="cheese-zaatar.png" alt="Kafta and Cheese">
+        <div class="item-details">
+          <h5>كفتة وجبنة</h5>
+          <p class="item-description">مناقيش كفتة وجبنة</p>
+          <p class="item-price lbp">240,000 ل.ل</p>
         </div>
       </div>
 
@@ -2290,117 +3060,304 @@
       <div class="item-card">
         <img src="sujuk-pizza.png" alt="Sausage Pizza">
         <div class="item-details">
-          <h5>بيتزا سجق</h5>
+          <h5>بيتزا سجق صغير</h5>
           <p class="item-description">بيتزا شرقيّة مع سجق بلدي وجبنة </p>
-          <p class="item-price lbp">300,000 ل.ل</p>
+          <p class="item-price lbp">350,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="sujuk-pizza.png" alt="Sausage Pizza">
+        <div class="item-details">
+          <h5>بيتزا سجق وسط</h5>
+          <p class="item-description">بيتزا شرقيّة مع سجق بلدي وجبنة </p>
+          <p class="item-price lbp">650,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="sujuk-pizza.png" alt="Sausage Pizza">
+        <div class="item-details">
+          <h5>بيتزا سجق كبير</h5>
+          <p class="item-description">بيتزا شرقيّة مع سجق بلدي وجبنة </p>
+          <p class="item-price lbp">950,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
         <img src="mortadella-pizza.png" alt="Mortadella Pizza">
         <div class="item-details">
-          <h5>بيتزا مرتديلا</h5>
+          <h5>بيتزا مرتديلا صغير</h5>
           <p class="item-description">بيتزا مرتديلا مع جبنة وصوص خاص</p>
+          <p class="item-price lbp">350,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="mortadella-pizza.png" alt="Mortadella Pizza">
+        <div class="item-details">
+          <h5>بيتزا مرتديلا وسط</h5>
+          <p class="item-description">بيتزا مرتديلا مع جبنة وصوص خاص</p>
+          <p class="item-price lbp">650,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="mortadella-pizza.png" alt="Mortadella Pizza">
+        <div class="item-details">
+          <h5>بيتزا مرتديلا كبير</h5>
+          <p class="item-description">بيتزا مرتديلا مع جبنة وصوص خاص</p>
+          <p class="item-price lbp">950,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="vegetable-pizza.png" alt="Vegetable Pizza">
+        <div class="item-details">
+          <h5>بيتزا خضرا صغير</h5>
+          <p class="item-description">بيتزا بالخضار الطازجة وجبنة </p>
           <p class="item-price lbp">300,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
         <img src="vegetable-pizza.png" alt="Vegetable Pizza">
         <div class="item-details">
-          <h5>بيتزا خضرا</h5>
+          <h5>بيتزا خضرا وسط</h5>
           <p class="item-description">بيتزا بالخضار الطازجة وجبنة </p>
-          <p class="item-price lbp">300,000 ل.ل</p>
+          <p class="item-price lbp">600,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="vegetable-pizza.png" alt="Vegetable Pizza">
+        <div class="item-details">
+          <h5>بيتزا خضرا كبير</h5>
+          <p class="item-description">بيتزا بالخضار الطازجة وجبنة </p>
+          <p class="item-price lbp">900,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
         <img src="turkey-pizza.png" alt="Turkey Pizza">
         <div class="item-details">
-          <h5>بيتزا حبش</h5>
+          <h5>بيتزا حبش صغير</h5>
           <p class="item-description">بيتزا حبش مدخن مع جبنة وصوص خاص</p>
-          <p class="item-price lbp">300,000 ل.ل</p>
+          <p class="item-price lbp">350,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
-        <img src="extra-pizza.png" alt="Extra Pizza">
+        <img src="turkey-pizza.png" alt="Turkey Pizza">
         <div class="item-details">
-          <h5>بيتزا إكسترا</h5>
-          <p class="item-description">بيتزا مع إضافات متنوعة وجبنة إكسترا</p>
-          <p class="item-price lbp">400,000 ل.ل</p>
-        </div>
-      </div>
-      <div class="item-card">
-        <img src="extra-pizza.png" alt="Medium Pizza">
-        <div class="item-details">
-          <h5>بيتزا وسط</h5>
-          <p class="item-description">بيتزا حجم وسط مع صوص وجبنة</p>
-          <p class="item-price lbp">500,000 ل.ل</p>
-        </div>
-      </div>
-      <div class="item-card">
-        <img src="extra-pizza.png" alt="Large Pizza">
-        <div class="item-details">
-          <h5>بيتزا كبير</h5>
-          <p class="item-description">بيتزا حجم كبير مع صوص وجبنة</p>
-          <p class="item-price lbp">900,000 ل.ل</p>
-        </div>
-      </div>
-
-      <h4 class="subcategory-subtitle">بيتزا الغدير</h4>
-      <div class="item-card">
-        <img src="ghadirpizza.png" alt="Small Pizza">
-        <div class="item-details">
-          <h5>بيتزا حجم صغير</h5>
-          <p class="item-description">بيتزا الغدير حجم صغير مع صوص وجبنة</p>
+          <h5>بيتزا حبش وسط</h5>
+          <p class="item-description">بيتزا حبش مدخن مع جبنة وصوص خاص</p>
           <p class="item-price lbp">600,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
-        <img src="ghadirpizza.png" alt="Medium Pizza">
+        <img src="turkey-pizza.png" alt="Turkey Pizza">
         <div class="item-details">
-          <h5>بيتزا حجم وسط</h5>
-          <p class="item-description">بيتزا الغدير حجم وسط مع صوص وجبنة</p>
-          <p class="item-price lbp">900,000 ل.ل</p>
+          <h5>بيتزا حبش كبير</h5>
+          <p class="item-description">بيتزا حبش مدخن مع جبنة وصوص خاص</p>
+          <p class="item-price lbp">950,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
-        <img src="ghadirpizza.png" alt="Large Pizza">
+        <img src="normal-peperonipizza.png" alt="normalpeperoni Pizza">
         <div class="item-details">
-          <h5>بيتزا حجم كبير</h5>
-          <p class="item-description">بيتزا الغدير حجم كبير مع صوص وجبنة</p>
-          <p class="item-price lbp">1,200,000 ل.ل</p>
+          <h5>بيتزا بيبروني  صغير</h5>
+          <p class="item-description">بيتزا ببروني مع جبنة وصوص خاص</p>
+          <p class="item-price lbp">420,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="normal-peperonipizza.png" alt="normalpeperoni Pizza">
+        <div class="item-details">
+          <h5>بيتزا بيبروني وسط</h5>
+          <p class="item-description">بيتزا ببروني مع جبنة وصوص خاص</p>
+          <p class="item-price lbp">750,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="normal-peperonipizza.png" alt="normalpeperoni Pizza">
+        <div class="item-details">
+          <h5>بيتزا بيبروني كبير</h5>
+          <p class="item-description">بيتزا ببروني مع جبنة وصوص خاص</p>
+          <p class="item-price lbp">1,000,000 ل.ل</p>
         </div>
       </div>
 
+
+
       <h4 class="subcategory-subtitle">مشروحة</h4>
       <div class="item-card">
-        <img src="kashkawan-cheese.png" alt="Mashrouha Cheese">
+        <img src="mashrouha-zaatar.png" alt="Za'atar Flatbread">
         <div class="item-details">
-          <h5> جبنة</h5>
-          <p class="item-description">مشروحة جبنة  في عجينة طرية</p>
-          <p class="item-price lbp">240,000 ل.ل</p>
-        </div>
-      </div>
-      <div class="item-card">
-        <img src="zaatar.png" alt="Mashrouha Zaatar">
-        <div class="item-details">
-          <h5> زعتر</h5>
-          <p class="item-description">مشروحة زعتر بلدي مع زيت الزيتون</p>
+          <h5>زعتر</h5>
+          <p class="item-description">مشروحة زعتر طازجة</p>
           <p class="item-price lbp">90,000 ل.ل</p>
         </div>
       </div>
+      
       <div class="item-card">
-        <img src="akawi-cheese.png" alt="Mashrouha ekawikashkawan">
+        <img src="mashrouha-cheese.png" alt="Cheese Flatbread">
         <div class="item-details">
-          <h5> عكاوي وقشقوان</h5>
-          <p class="item-description">مشروحة جبنة عكاوي وقشقوان </p>
+          <h5>جبنة</h5>
+          <p class="item-description">مشروحة جبنة طازجة</p>
+          <p class="item-price lbp">250,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-zaatar-cheese.png" alt="Za'atar and Cheese Flatbread">
+        <div class="item-details">
+          <h5>زعتر و جبنة</h5>
+          <p class="item-description">مشروحة زعتر وجبنة طازجة</p>
+          <p class="item-price lbp">160,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-kashkaval.png" alt="Kashkaval Flatbread">
+        <div class="item-details">
+          <h5>قشقوان</h5>
+          <p class="item-description">مشروحة قشقوان طازجة</p>
           <p class="item-price lbp">300,000 ل.ل</p>
         </div>
       </div>
+      
       <div class="item-card">
-        <img src="cheese-zaatar.png" alt="Mashrouha Zaatarjebneh">
+        <img src="mashrouha-kashkaval-akkawi.png" alt="Kashkaval and Akkawi Flatbread">
         <div class="item-details">
-          <h5> زعتر وجبنة</h5>
-          <p class="item-description">مشروحة زعتر مع جبنة </p>
-          <p class="item-price lbp">150,000 ل.ل</p>
+          <h5>قشقوان وعكاوي</h5>
+          <p class="item-description">مشروحة قشقوان وعكاوي طازجة</p>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-kishk.png" alt="Kishk Flatbread">
+        <div class="item-details">
+          <h5>كشك</h5>
+          <p class="item-description">مشروحة كشك طازجة</p>
+          <p class="item-price lbp">180,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-kishk-cheese.png" alt="Kishk and Cheese Flatbread">
+        <div class="item-details">
+          <h5>كشك وجبنة</h5>
+          <p class="item-description">مشروحة كشك وجبنة طازجة</p>
+          <p class="item-price lbp">250,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-onion-tomato.png" alt="Onion and Tomato Flatbread">
+        <div class="item-details">
+          <h5>بصل وبندورة</h5>
+          <p class="item-description">مشروحة بصل وبندورة طازجة</p>
+          <p class="item-price lbp">180,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-onion-tomato-cheese.png" alt="Onion, Tomato and Cheese Flatbread">
+        <div class="item-details">
+          <h5>بصل وبندورة وجبنة</h5>
+          <p class="item-description">مشروحة بصل وبندورة وجبنة طازجة</p>
+          <p class="item-price lbp">250,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-zaatar-tomato-onion.png" alt="Za'atar, Tomato and Onion Flatbread">
+        <div class="item-details">
+          <h5>زعتر وبندورة وبصل</h5>
+          <p class="item-description">مشروحة زعتر وبندورة وبصل طازجة</p>
+          <p class="item-price lbp">200,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-labneh.png" alt="Labneh Flatbread">
+        <div class="item-details">
+          <h5>لبنة</h5>
+          <p class="item-description">مشروحة لبنة طازجة</p>
+          <p class="item-price lbp">180,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-zaatar-labneh.png" alt="Za'atar and Labneh Flatbread">
+        <div class="item-details">
+          <h5>زعتر ولبنة</h5>
+          <p class="item-description">مشروحة زعتر ولبنة طازجة</p>
+          <p class="item-price lbp">200,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-feta-hara.png" alt="Spicy Feta Flatbread">
+        <div class="item-details">
+          <h5>فيتا حرة</h5>
+          <p class="item-description">مشروحة فيتا حرة طازجة</p>
+          <p class="item-price lbp">280,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-sujuk.png" alt="Sujuk Flatbread">
+        <div class="item-details">
+          <h5>سجق</h5>
+          <p class="item-description">مشروحة سجق طازجة</p>
+          <p class="item-price lbp">260,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-sujuk-cheese.png" alt="Sujuk and Cheese Flatbread">
+        <div class="item-details">
+          <h5>سجق وجبنة</h5>
+          <p class="item-description">مشروحة سجق وجبنة طازجة</p>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-kofta.png" alt="Kofta Flatbread">
+        <div class="item-details">
+          <h5>كفتة</h5>
+          <p class="item-description">مشروحة كفتة طازجة</p>
+          <p class="item-price lbp">260,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-kofta-cheese.png" alt="Kofta and Cheese Flatbread">
+        <div class="item-details">
+          <h5>كفتة وجبنة</h5>
+          <p class="item-description">مشروحة كفتة وجبنة طازجة</p>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-mortadella-cheese.png" alt="Mortadella and Cheese Flatbread">
+        <div class="item-details">
+          <h5>مرتديلا وجبنة</h5>
+          <p class="item-description">مشروحة مرتديلا وجبنة طازجة</p>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-turkey-cheese.png" alt="Turkey and Cheese Flatbread">
+        <div class="item-details">
+          <h5>حبش وجبنة</h5>
+          <p class="item-description">مشروحة حبش وجبنة طازجة</p>
+          <p class="item-price lbp">330,000 ل.ل</p>
+        </div>
+      </div>
+      
+      <div class="item-card">
+        <img src="mashrouha-pepperoni-cheese.png" alt="Pepperoni and Cheese Flatbread">
+        <div class="item-details">
+          <h5>بيبروني وجبنة</h5>
+          <p class="item-description">مشروحة بيبروني وجبنة طازجة</p>
+          <p class="item-price lbp">320,000 ل.ل</p>
         </div>
       </div>
 
@@ -2445,6 +3402,14 @@
           <p class="item-price lbp">400,000 ل.ل</p>
         </div>
       </div>
+      <div class="item-card">
+        <img src="rghif.png" alt="rghif lahme">
+        <div class="item-details">
+          <h5> لحمة</h5>
+          <p class="item-description">رغيف لحمة طازجة</p>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
 
       <h4 class="subcategory-subtitle">كعكة</h4>
       <div class="item-card">
@@ -2458,9 +3423,17 @@
       <div class="item-card">
         <img src="kaak.png" alt="Cheese Cake">
         <div class="item-details">
-          <h5>كعكة جبنة</h5>
+          <h5>كعكة عكاوي</h5>
           <p class="item-description">كعكة محشوة بالجبنة </p>
           <p class="item-price lbp">250,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Cheese Cake">
+        <div class="item-details">
+          <h5>كعكة قشقوان</h5>
+          <p class="item-description">كعكة محشوة بالجبنة </p>
+          <p class="item-price lbp">290,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -2476,7 +3449,7 @@
         <div class="item-details">
           <h5>كعكة مرتديلا وجبنة</h5>
           <p class="item-description">كعكة محشوة بمرتديلا وجبنة</p>
-          <p class="item-price lbp">350,000 ل.ل</p>
+          <p class="item-price lbp">300,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -2484,7 +3457,7 @@
         <div class="item-details">
           <h5>كعكة سجق وجبنة</h5>
           <p class="item-description">كعكة محشوة بسجق بلدي وجبنة</p>
-          <p class="item-price lbp">350,000 ل.ل</p>
+          <p class="item-price lbp">300,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -2492,7 +3465,7 @@
         <div class="item-details">
           <h5>كعكة زعتر</h5>
           <p class="item-description">كعكة محشوة بالزعتر البلدي</p>
-          <p class="item-price lbp">130,000 ل.ل</p>
+          <p class="item-price lbp">100,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -2500,7 +3473,7 @@
         <div class="item-details">
           <h5>كعكة جبنة وزعتر</h5>
           <p class="item-description">كعكة محشوة بالجبنة والزعتر</p>
-          <p class="item-price lbp">210,000 ل.ل</p>
+          <p class="item-price lbp">200,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -2511,6 +3484,62 @@
           <p class="item-price lbp">255,000 ل.ل</p>
         </div>
       </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Labneh Cake">
+        <div class="item-details">
+          <h5>كعكة لبنة</h5>
+          <p class="item-description">كعكة محشوة باللبنة الطازجة</p>
+          <p class="item-price lbp">250,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Bacon Cake">
+        <div class="item-details">
+          <h5>كعكة بيكون</h5>
+          <p class="item-description">كعكة بيكون</p>
+          <p class="item-price lbp">250,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Sausage Cake">
+        <div class="item-details">
+          <h5>كعكة سجق</h5>
+          <p class="item-description">كعكة سجق</p>
+          <p class="item-price lbp">250,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Kafta Cake">
+        <div class="item-details">
+          <h5>كعكة كفتة</h5>
+          <p class="item-description">كعكة كفتة</p>
+          <p class="item-price lbp">250,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Sausage and Cheese Cake">
+        <div class="item-details">
+          <h5>كعكة سجق وجبنة</h5>
+          <p class="item-description">كعكة سجق وجبنة</p>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Pepperoni and Cheese Cake">
+        <div class="item-details">
+          <h5>كعكة ببروني وجبنة</h5>
+          <p class="item-description">كعكة ببروني وجبنة</p>
+          <p class="item-price lbp">350,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="kaak.png" alt="Turkey and Cheese Cake">
+        <div class="item-details">
+          <h5>كعكة حبش وجبنة</h5>
+          <p class="item-description">كعكة حبش وجبنة</p>
+          <p class="item-price lbp">300,000 ل.ل</p>
+        </div>
+      </div>
 
       <h4 class="subcategory-subtitle">جريش</h4>
       <div class="item-card">
@@ -2518,7 +3547,7 @@
         <div class="item-details">
           <h5>جبنة عكاوي</h5>
           <p class="item-description">جريش محشو بجبنة عكاوي لبنانية</p>
-          <p class="item-price lbp">170,000 ل.ل</p>
+          <p class="item-price lbp">190,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -2526,7 +3555,7 @@
         <div class="item-details">
           <h5>جبنة قشقوان</h5>
           <p class="item-description">جريش محشو بجبنة قشقوان </p>
-          <p class="item-price lbp">250,000 ل.ل</p>
+          <p class="item-price lbp">260,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -2534,7 +3563,7 @@
         <div class="item-details">
           <h5>جبنة وزعتر</h5>
           <p class="item-description">جريش محشو بالجبنة والزعتر البلدي</p>
-          <p class="item-price lbp">130,000 ل.ل</p>
+          <p class="item-price lbp">140,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -2542,7 +3571,7 @@
         <div class="item-details">
           <h5>زعتر</h5>
           <p class="item-description">جريش محشو بالزعتر البلدي</p>
-          <p class="item-price lbp">70,000 ل.ل</p>
+          <p class="item-price lbp">80,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -2566,7 +3595,7 @@
         <div class="item-details">
           <h5>بصل وبندورة</h5>
           <p class="item-description">جريش محشو بالبصل والبندورة الطازجة</p>
-          <p class="item-price lbp">130,000 ل.ل</p>
+          <p class="item-price lbp">140,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -2574,7 +3603,7 @@
         <div class="item-details">
           <h5>بصل وبندورة مع جبنة</h5>
           <p class="item-description">جريش محشو بالبصل والبندورة مع جبنة</p>
-          <p class="item-price lbp">200,000 ل.ل</p>
+          <p class="item-price lbp">210,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -2582,7 +3611,7 @@
         <div class="item-details">
           <h5>كشك</h5>
           <p class="item-description">جريش محشو بالكشك البلدي</p>
-          <p class="item-price lbp">130,000 ل.ل</p>
+          <p class="item-price lbp">140,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -2590,7 +3619,7 @@
         <div class="item-details">
           <h5>كشك وجبنة</h5>
           <p class="item-description">جريش محشو بالكشك والجبنة </p>
-          <p class="item-price lbp">200,000 ل.ل</p>
+          <p class="item-price lbp">210,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -2598,7 +3627,7 @@
         <div class="item-details">
           <h5>لحمة بعجين</h5>
           <p class="item-description">جريش محشو بلحمة بعجين على الطريقة البعلبكية</p>
-          <p class="item-price lbp">260,000 ل.ل</p>
+          <p class="item-price lbp">210,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -2606,7 +3635,7 @@
         <div class="item-details">
           <h5>لحمة وجبنة</h5>
           <p class="item-description">جريش محشو باللحمة والجبنة </p>
-          <p class="item-price lbp">300,000 ل.ل</p>
+          <p class="item-price lbp">250,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -2614,7 +3643,7 @@
         <div class="item-details">
           <h5>سجق وجبنة</h5>
           <p class="item-description">جريش محشو بسجق بلدي وجبنة</p>
-          <p class="item-price lbp">250,000 ل.ل</p>
+          <p class="item-price lbp">260,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -2622,7 +3651,7 @@
         <div class="item-details">
           <h5>مرتديلا وجبنة</h5>
           <p class="item-description">جريش محشو بمرتديلا وجبنة</p>
-          <p class="item-price lbp">250,000 ل.ل</p>
+          <p class="item-price lbp">260,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -2630,7 +3659,7 @@
         <div class="item-details">
           <h5>حبش وجبنة</h5>
           <p class="item-description">جريش محشو بحبش مدخن وجبنة</p>
-          <p class="item-price lbp">250,000 ل.ل</p>
+          <p class="item-price lbp">290,000 ل.ل</p>
         </div>
       </div>
 
@@ -2671,7 +3700,7 @@
         <div class="item-details">
           <h5>فيتا حارة</h5>
           <p class="item-description">جريش محشو بجبنة فيتا الحارة</p>
-          <p class="item-price lbp">200,000 ل.ل</p>
+          <p class="item-price lbp">240,000 ل.ل</p>
         </div>
       </div>
       <div class="item-card">
@@ -2690,6 +3719,46 @@
           <p class="item-price lbp">170,000 ل.ل</p>
         </div>
       </div>
+      <div class="item-card">
+        <img src="jrish.png" alt="Muhammara and Cheese">
+        <div class="item-details">
+          <h5>محمرة وجبنة</h5>
+          <p class="item-description">جريش محشو بمحمرة بلدية وجبنة </p>
+          <p class="item-price lbp">170,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="jrish.png" alt="Labneh and Onion">
+        <div class="item-details">
+          <h5>لبنة وبصل</h5>
+          <p class="item-description">جريش محشو باللبنة والبصل</p>
+          <p class="item-price lbp">140,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="jrish.png" alt="Akawi and Kashkawan">
+        <div class="item-details">
+          <h5>عكاوي وقشقوان</h5>
+          <p class="item-description">جريش محشو بجبنة عكاوي وقشقوان</p>
+          <p class="item-price lbp">260,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="jrish.png" alt="Kafta">
+        <div class="item-details">
+          <h5>كفتة</h5>
+          <p class="item-description">جريش محشو بالكفتة</p>
+          <p class="item-price lbp">210,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="jrish.png" alt="Kafta and Cheese">
+        <div class="item-details">
+          <h5>كفتة وجبنة</h5>
+          <p class="item-description">جريش محشو بالكفتة والجبنة</p>
+          <p class="item-price lbp">250,000 ل.ل</p>
+        </div>
+      </div>
 
       <h4 class="subcategory-subtitle">كرواسون - Croissant</h4>
       <div class="item-card">
@@ -2705,7 +3774,7 @@
         <div class="item-details">
           <h5>كرواسون كبير</h5>
           <p class="item-description">كرواسون كبير محشو أو سادة حسب الرغبة</p>
-          <p class="item-price lbp">70,000 ل.ل</p>
+          <p class="item-price lbp">75,000 ل.ل</p>
         </div>
       </div>
 
@@ -2727,10 +3796,191 @@
         </div>
       </div>
     </div>
+
+    <!-- Sauces Category -->
+    <div id="sauces" class="menu-section">
+      <h3 class="subcategory-title">الصوص والإضافات</h3>
+      <div class="item-card">
+        <img src="sauce.png" alt="Sauce">
+        <div class="item-details">
+          <h5>صوص</h5>
+          <p class="item-description">صوص طازج</p>
+          <p class="item-price lbp">50,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="lsauce.png" alt="Large Sauce">
+        <div class="item-details">
+          <h5>صوص كبير</h5>
+          <p class="item-description">صوص كبير طازج</p>
+          <p class="item-price lbp">100,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="garlic.png" alt="Garlic Sauce">
+        <div class="item-details">
+          <h5>صوص ثوم</h5>
+          <p class="item-description">صوص ثوم طازج</p>
+          <p class="item-price lbp">50,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="lgarlic.png" alt="Large Garlic Sauce">
+        <div class="item-details">
+          <h5>صوص ثوم كبير</h5>
+          <p class="item-description">صوص ثوم كبير طازج</p>
+          <p class="item-price lbp">100,000 ل.ل</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drinks Category -->
+    <div id="drinks" class="menu-section">
+      <h3 class="subcategory-title">مرطبات</h3>
+      <div class="item-card">
+        <img src="pepsi.png" alt="Pepsi">
+        <div class="item-details">
+          <h5>بيبسي</h5>
+          <p class="item-description">بيبسي بارد ومنعش</p>
+          <p class="item-price lbp">80,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="7up.png" alt="7up">
+        <div class="item-details">
+          <h5>سفن اب</h5>
+          <p class="item-description">سفن اب بارد ومنعش</p>
+          <p class="item-price lbp">80,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="miranda.png" alt="Mirinda">
+        <div class="item-details">
+          <h5>ميرندا</h5>
+          <p class="item-description">ميرندا برتقالية منعشة</p>
+          <p class="item-price lbp">80,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="laban.png" alt="Laban">
+        <div class="item-details">
+          <h5>لبن</h5>
+          <p class="item-description">لبن طازج ومنعش</p>
+          <p class="item-price lbp">80,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="juiceglass.png" alt="Juice Glass">
+        <div class="item-details">
+          <h5>عصير زجاج</h5>
+          <p class="item-description">عصير طازج في كوب</p>
+          <p class="item-price lbp">50,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="topjuice.png" alt="Top Juice">
+        <div class="item-details">
+          <h5>توب جوس</h5>
+          <p class="item-description">توب جوس منعش</p>
+          <p class="item-price lbp">25,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="water.png" alt="Water">
+        <div class="item-details">
+          <h5>مياه صغير</h5>
+          <p class="item-description">مياه معدنية طبيعية</p>
+          <p class="item-price lbp">35,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="tea.png" alt="Tea">
+        <div class="item-details">
+          <h5>شاي</h5>
+          <p class="item-description">شاي ساخن أو بارد</p>
+          <p class="item-price lbp">50,000 ل.ل</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Meat Category -->
+    <div id="meat" class="menu-section">
+      <h3 class="subcategory-title">لحمة</h3>
+      <div class="item-card">
+        <img src="meat-regular.png" alt="Regular Meat">
+        <div class="item-details">
+          <h5>كيلو لحمة عادي</h5>
+          <p class="item-description">لحمة عادية طازجة</p>
+          <p class="item-price lbp">1,200,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="meat-grill.png" alt="Grill Meat">
+        <div class="item-details">
+          <h5>كيلو لحمة للشوي</h5>
+          <p class="item-description">لحمة مخصصة للشوي</p>
+          <p class="item-price lbp">1,300,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="meat-lean.png" alt="Lean Meat">
+        <div class="item-details">
+          <h5>كيلو هبرة</h5>
+          <p class="item-description">لحمة هبرة خالية من الدهون</p>
+          <p class="item-price lbp">1,300,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="meat-liver.png" alt="Liver">
+        <div class="item-details">
+          <h5>كيلو سودا</h5>
+          <p class="item-description">كبد طازج</p>
+          <p class="item-price lbp">1,100,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="meat-smooth.png" alt="Smooth Meat">
+        <div class="item-details">
+          <h5>كيلو ملسة</h5>
+          <p class="item-description">لحمة ملسة طرية</p>
+          <p class="item-price lbp">1,200,000 ل.ل</p>
+        </div>
+      </div>
+      <div class="item-card">
+        <img src="meat-fillet.png" alt="Fillet">
+        <div class="item-details">
+          <h5>كيلو فتيلة</h5>
+          <p class="item-description">لحمة فتيلة مميزة</p>
+          <p class="item-price lbp">1,800,000 ل.ل</p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- JS -->
   <script>
+    // Subcategory definitions
+    const subcategories = {
+      'breads': [
+        { id: 'sfiha', name: 'صفيحة بعلبكية', selector: 'h3:contains("صفيحة")' },
+        { id: 'lahme-bi-ajeen', name: 'لحمة بعجين', selector: 'h3:contains("لحمة بعجين")' }
+      ],
+      'grill': [
+        { id: 'grill-main', name: 'مشاوي', selector: 'h3:contains("مشاوي")' },
+        { id: 'sandwiches', name: 'سندويشات', selector: 'h4:contains("سندويشات")' }
+      ],
+      'pastries': [
+        { id: 'manakish', name: 'مناقيش', selector: 'h4:contains("مناقيش")' },
+        { id: 'pizza', name: 'بيتزا', selector: 'h4:contains("بيتزا")' },
+        { id: 'mashrouha', name: 'مشروحة', selector: 'h4:contains("مشروحة")' },
+        { id: 'rghif', name: 'رغيف', selector: 'h4:contains("رغيف")' },
+        { id: 'cake', name: 'كعكة', selector: 'h4:contains("كعكة")' },
+        { id: 'jreesh', name: 'جريش', selector: 'h4:contains("جريش")' },
+        { id: 'croissant', name: 'كرواسون', selector: 'h4:contains("كرواسون")' },
+        { id: 'pastries', name: 'معجنات', selector: 'h4:contains("معجنات")' }
+      ]
+    };
+
     function showCategory(event, categoryId) {
       // Hide all sections
       document.querySelectorAll('.menu-section').forEach(section => {
@@ -2745,6 +3995,28 @@
         btn.classList.remove('active');
       });
       event.target.classList.add('active');
+
+      // Handle subcategory navigation
+      const subcategoryButtons = document.getElementById('subcategory-buttons');
+      
+      if (subcategories[categoryId]) {
+        // Clear and populate subcategory buttons
+        subcategoryButtons.innerHTML = '';
+        subcategories[categoryId].forEach(sub => {
+          const button = document.createElement('button');
+          button.className = 'subcategory-btn';
+          button.textContent = sub.name;
+          button.setAttribute('data-subcategory', sub.id);
+          button.onclick = (e) => scrollToSubcategory(sub.id, e);
+          subcategoryButtons.appendChild(button);
+        });
+        
+        // Show subcategory navigation with animation
+        subcategoryButtons.classList.add('active');
+      } else {
+        // Hide subcategory navigation
+        subcategoryButtons.classList.remove('active');
+      }
 
       // Center the selected button
       const categoryButtons = document.querySelector('.category-buttons');
@@ -2768,6 +4040,98 @@
         behavior: 'smooth'
       });
     }
+
+    function scrollToSubcategory(subcategoryId, event) {
+      // Prevent rapid clicking
+      if (event.target.classList.contains('scrolling')) {
+        return;
+      }
+      
+      // Update subcategory button states
+      document.querySelectorAll('.subcategory-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+      event.target.classList.add('scrolling');
+      
+      // Remove scrolling class after animation completes
+      setTimeout(() => {
+        event.target.classList.remove('scrolling');
+      }, 1000);
+
+      // Find the subcategory element
+      const activeSection = document.querySelector('.menu-section.active');
+      if (!activeSection) return;
+
+      const subcategoryTitles = activeSection.querySelectorAll('.subcategory-title, .subcategory-subtitle');
+      
+      for (let title of subcategoryTitles) {
+        const text = title.textContent.trim();
+        
+        // Enhanced text matching with better logic
+        if ((subcategoryId === 'sfiha' && text.includes('صفيحة')) ||
+            (subcategoryId === 'lahme-bi-ajeen' && text.includes('لحمة بعجين')) ||
+            (subcategoryId === 'italian-pizza' && text.includes('Italian Pizza')) ||
+            (subcategoryId === 'meat' && text.includes('لحمة') && !text.includes('بعجين')) ||
+            (subcategoryId === 'grill-main' && text.includes('مشاوي')) ||
+            (subcategoryId === 'sandwiches' && text.includes('سندويشات')) ||
+            (subcategoryId === 'manakish' && text.includes('مناقيش')) ||
+            (subcategoryId === 'pizza' && text.includes('بيتزا') && !text.includes('Italian')) ||
+            (subcategoryId === 'mashrouha' && text.includes('مشروحة')) ||
+            (subcategoryId === 'rghif' && text.includes('رغيف')) ||
+            (subcategoryId === 'cake' && text.includes('كعكة')) ||
+            (subcategoryId === 'jreesh' && text.includes('جريش')) ||
+            (subcategoryId === 'croissant' && text.includes('كرواسون')) ||
+            (subcategoryId === 'pastries' && text.includes('معجنات') && !text.includes('مناقيش')) ||
+            (subcategoryId === 'sauces' && text.includes('الصوص')) ||
+            (subcategoryId === 'drinks' && text.includes('مرطبات'))) {
+          
+          // Get the header height to account for sticky navigation
+          const header = document.querySelector('header');
+          const headerHeight = header ? header.offsetHeight : 0;
+          
+          // Calculate the target scroll position
+          const targetPosition = title.offsetTop - headerHeight - 20; // 20px offset for better spacing
+          
+          // Smooth scroll to the subcategory with better positioning
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+          
+          // Add a subtle highlight effect
+          title.style.transition = 'all 0.3s ease';
+          title.style.color = '#2ecc71';
+          setTimeout(() => {
+            title.style.color = '';
+          }, 2000);
+          
+          break;
+        }
+      }
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      // Show subcategories for the default active category (specials)
+      const defaultCategory = document.querySelector('.category-btn.active');
+      if (defaultCategory) {
+        const categoryId = defaultCategory.getAttribute('onclick').match(/'([^']+)'/)[1];
+        if (subcategories[categoryId]) {
+          const subcategoryButtons = document.getElementById('subcategory-buttons');
+          subcategoryButtons.innerHTML = '';
+          subcategories[categoryId].forEach(sub => {
+            const button = document.createElement('button');
+            button.className = 'subcategory-btn';
+            button.textContent = sub.name;
+            button.setAttribute('data-subcategory', sub.id);
+            button.onclick = (e) => scrollToSubcategory(sub.id, e);
+            subcategoryButtons.appendChild(button);
+          });
+          subcategoryButtons.classList.add('active');
+        }
+      }
+    });
   </script>
 
   <!-- Add this right before the closing body tag -->
