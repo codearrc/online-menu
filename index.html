@@ -169,6 +169,12 @@
       font-family: 'Cairo', sans-serif;
       backdrop-filter: blur(10px);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      min-height: 44px;
+      min-width: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
     }
 
     .subcategory-btn:hover {
@@ -185,6 +191,20 @@
       border-color: var(--accent-color);
       transform: scale(1.05);
       box-shadow: 0 4px 12px rgba(46, 204, 113, 0.4);
+      position: relative;
+    }
+
+    .subcategory-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 6px;
+      background: var(--accent-color);
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(46, 204, 113, 0.6);
     }
 
     .subcategory-btn:active {
@@ -343,6 +363,60 @@
         border-color: white;
       }
 
+      /* Enhanced Mobile Subcategory Navigation */
+      .subcategory-buttons {
+        padding: 1rem 0.8rem;
+        gap: 0.6rem;
+        background: linear-gradient(135deg, #1a5f7a 0%, #2c3e50 100%);
+        position: sticky;
+        top: 0;
+        z-index: 998;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .subcategory-btn {
+        font-size: 0.85rem;
+        padding: 0.8rem 1.2rem;
+        border-radius: 20px;
+        min-height: 48px;
+        min-width: 90px;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.08);
+        font-weight: 600;
+        letter-spacing: 0.2px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.2s ease;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .subcategory-btn:hover {
+        background: rgba(46, 204, 113, 0.2);
+        border-color: var(--accent-color);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(46, 204, 113, 0.2);
+      }
+
+      .subcategory-btn.active {
+        background: var(--accent-color);
+        border-color: var(--accent-color);
+        transform: scale(1.02);
+        box-shadow: 0 4px 12px rgba(46, 204, 113, 0.4);
+        font-weight: 700;
+      }
+
+      .subcategory-btn.active::after {
+        bottom: -6px;
+        width: 8px;
+        height: 8px;
+        box-shadow: 0 0 12px rgba(46, 204, 113, 0.8);
+      }
+
+      .subcategory-btn:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
+      }
+
       .item-card {
         margin-bottom: 1rem;
       }
@@ -393,6 +467,70 @@
         padding: 1rem 1.8rem;
         font-size: 1rem;
         min-height: 55px;
+      }
+
+      /* Enhanced Small Screen Subcategory Navigation */
+      .subcategory-buttons {
+        padding: 0.8rem 0.6rem;
+        gap: 0.5rem;
+        background: linear-gradient(135deg, #1a5f7a 0%, #2c3e50 100%);
+        position: sticky;
+        top: 0;
+        z-index: 998;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      .subcategory-buttons::-webkit-scrollbar {
+        display: none;
+      }
+
+      .subcategory-btn {
+        font-size: 0.8rem;
+        padding: 0.7rem 1rem;
+        border-radius: 18px;
+        min-height: 44px;
+        min-width: 80px;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.08);
+        font-weight: 600;
+        letter-spacing: 0.1px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.2s ease;
+        -webkit-tap-highlight-color: transparent;
+        flex-shrink: 0;
+        white-space: nowrap;
+      }
+
+      .subcategory-btn:hover {
+        background: rgba(46, 204, 113, 0.2);
+        border-color: var(--accent-color);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(46, 204, 113, 0.2);
+      }
+
+      .subcategory-btn.active {
+        background: var(--accent-color);
+        border-color: var(--accent-color);
+        transform: scale(1.02);
+        box-shadow: 0 4px 12px rgba(46, 204, 113, 0.4);
+        font-weight: 700;
+      }
+
+      .subcategory-btn.active::after {
+        bottom: -4px;
+        width: 6px;
+        height: 6px;
+        box-shadow: 0 0 8px rgba(46, 204, 113, 0.8);
+      }
+
+      .subcategory-btn:active {
+        transform: scale(0.98);
+        transition: transform 0.1s ease;
       }
 
       .container {
@@ -720,6 +858,7 @@
     .subcategory-btn {
       cursor: pointer;
       transition: all 0.2s ease;
+      touch-action: manipulation;
     }
 
     .subcategory-btn:active {
@@ -729,6 +868,56 @@
     .subcategory-btn.scrolling {
       pointer-events: none;
       opacity: 0.7;
+    }
+
+    /* Enhanced mobile touch feedback */
+    @media (max-width: 768px) {
+      .subcategory-btn {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+
+      .subcategory-btn:active {
+        transform: scale(0.92);
+        transition: transform 0.1s ease;
+      }
+
+      /* Improved subcategory navigation container */
+      .subcategory-buttons {
+        touch-action: pan-x;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      .subcategory-buttons::-webkit-scrollbar {
+        display: none;
+      }
+
+      /* Add subtle gradient overlay for better visual hierarchy */
+      .subcategory-buttons::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        background: linear-gradient(90deg, 
+          rgba(26, 95, 122, 0.1) 0%, 
+          transparent 20%, 
+          transparent 80%, 
+          rgba(26, 95, 122, 0.1) 100%);
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .subcategory-btn {
+        position: relative;
+        z-index: 2;
+      }
     }
 
     /* Mobile Optimizations */
@@ -1274,7 +1463,7 @@
       </div>
 
       <div class="item-card">
-        <img src="grilled-kafta.png" alt="Mixed Meal">
+        <img src="grilled-kafta.jpg" alt="Mixed Meal">
         <div class="item-details">
           <h5>وجبة (2) سيخ شقف / كفتة + 2 سيخ طاووق) + سرفيس</h5>
           <p class="item-description">وجبة 2 سيخ شقف/كفتة + 2 سيخ طاووق مع سرفيس</p>
@@ -2706,7 +2895,7 @@
       </div>
 
       <div class="item-card">
-        <img src="grilled-kafta.png" alt="Mixed Meal">
+        <img src="grilled-kafta.jpg" alt="Mixed Meal">
         <div class="item-details">
           <h5>وجبة (2) سيخ شقف / كفتة + 2 سيخ طاووق) + سرفيس</h5>
           <p class="item-description">وجبة 2 سيخ شقف/كفتة + 2 سيخ طاووق مع سرفيس</p>
@@ -3774,7 +3963,7 @@
         <div class="item-details">
           <h5>كرواسون كبير</h5>
           <p class="item-description">كرواسون كبير محشو أو سادة حسب الرغبة</p>
-          <p class="item-price lbp">75,000 ل.ل</p>
+          <p class="item-price lbp">70,000 ل.ل</p>
         </div>
       </div>
 
@@ -4007,6 +4196,8 @@
           button.className = 'subcategory-btn';
           button.textContent = sub.name;
           button.setAttribute('data-subcategory', sub.id);
+          button.setAttribute('aria-label', `Navigate to ${sub.name} section`);
+          button.setAttribute('role', 'tab');
           button.onclick = (e) => scrollToSubcategory(sub.id, e);
           subcategoryButtons.appendChild(button);
         });
@@ -4090,8 +4281,10 @@
           const header = document.querySelector('header');
           const headerHeight = header ? header.offsetHeight : 0;
           
-          // Calculate the target scroll position
-          const targetPosition = title.offsetTop - headerHeight - 20; // 20px offset for better spacing
+          // Calculate the target scroll position with better mobile positioning
+          const isMobile = window.innerWidth <= 768;
+          const mobileOffset = isMobile ? 30 : 20;
+          const targetPosition = title.offsetTop - headerHeight - mobileOffset;
           
           // Smooth scroll to the subcategory with better positioning
           window.scrollTo({
@@ -4099,12 +4292,45 @@
             behavior: 'smooth'
           });
           
-          // Add a subtle highlight effect
+          // Add a subtle highlight effect with mobile-optimized animation
           title.style.transition = 'all 0.3s ease';
           title.style.color = '#2ecc71';
+          title.style.transform = 'scale(1.02)';
+          
+          // Enhanced visual feedback for mobile
+          if (isMobile) {
+            title.style.backgroundColor = 'rgba(46, 204, 113, 0.1)';
+            title.style.borderRadius = '8px';
+            title.style.padding = '0.5rem';
+            title.style.margin = '0.5rem 0';
+          }
+          
           setTimeout(() => {
             title.style.color = '';
+            title.style.transform = '';
+            if (isMobile) {
+              title.style.backgroundColor = '';
+              title.style.borderRadius = '';
+              title.style.padding = '';
+              title.style.margin = '';
+            }
           }, 2000);
+          
+          // Center the active subcategory button on mobile
+          if (isMobile) {
+            const subcategoryButtons = document.querySelector('.subcategory-buttons');
+            const activeButton = event.target;
+            const containerWidth = subcategoryButtons.offsetWidth;
+            const buttonWidth = activeButton.offsetWidth;
+            const buttonLeft = activeButton.offsetLeft;
+            
+            const scrollPosition = buttonLeft - (containerWidth / 2) + (buttonWidth / 2);
+            
+            subcategoryButtons.scrollTo({
+              left: scrollPosition,
+              behavior: 'smooth'
+            });
+          }
           
           break;
         }
@@ -4121,12 +4347,14 @@
           const subcategoryButtons = document.getElementById('subcategory-buttons');
           subcategoryButtons.innerHTML = '';
           subcategories[categoryId].forEach(sub => {
-            const button = document.createElement('button');
-            button.className = 'subcategory-btn';
-            button.textContent = sub.name;
-            button.setAttribute('data-subcategory', sub.id);
-            button.onclick = (e) => scrollToSubcategory(sub.id, e);
-            subcategoryButtons.appendChild(button);
+                      const button = document.createElement('button');
+          button.className = 'subcategory-btn';
+          button.textContent = sub.name;
+          button.setAttribute('data-subcategory', sub.id);
+          button.setAttribute('aria-label', `Navigate to ${sub.name} section`);
+          button.setAttribute('role', 'tab');
+          button.onclick = (e) => scrollToSubcategory(sub.id, e);
+          subcategoryButtons.appendChild(button);
           });
           subcategoryButtons.classList.add('active');
         }
